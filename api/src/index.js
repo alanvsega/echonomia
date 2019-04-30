@@ -6,6 +6,9 @@ const app = express();
 mongoose.connect('mongodb://echonomia:echonomia2019@ds145786.mlab.com:45786/echonomia', {
   useNewUrlParser: true
 });
+mongoose.set('useFindAndModify', false);
+
+app.use(express.json());
 
 app.use(require('./routes/users'));
 
