@@ -1,6 +1,6 @@
 # echonomia
 
-# Dependências
+### Dependências da app
 
 `$ npm install expo-cli --global`
 
@@ -10,7 +10,7 @@
 
 `npm install`
 
-# Rodando a app 
+### Rodando a app 
 
 `$ cd ./app`
 
