@@ -12,6 +12,7 @@ const RootStack = createStackNavigator(
   },
   {
     initialRouteName: 'Login',
+    headerMode: 'none',
   }
 );
 
@@ -19,6 +20,6 @@ const AppContainer = createAppContainer(RootStack);
 
 export default class App extends React.Component {
   render() {
-    return <AppContainer />;
+    return <AppContainer/>;
   }
 }
