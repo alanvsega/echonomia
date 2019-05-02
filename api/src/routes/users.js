@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Users = require('../schemas/user');
+const { compare, hash, SALT_ROUNDS } = require('../utils/auth');
 
 router.get('/users', async (req, res) => {
   try {
@@ -22,6 +23,7 @@ router.get('/users/:id', async (req, res) => {
 
 router.post('/users', async (req, res) => {
   try {
+    req.body.password = await hash(req.body.password, SALT_ROUNDS);
     const user = await Users.create(req.body);
     res.json({ user });
   } catch (error) {
