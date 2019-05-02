@@ -1,8 +1,12 @@
 # echonomia
 
-### Dependências da app
+## App
+
+### Dependências
 
 `$ npm install expo-cli --global`
+
+`$ npm install react-native-cli --global`
 
 `$ npm install create-react-app --global`
 
@@ -10,7 +14,7 @@
 
 `npm install`
 
-### Rodando a app 
+### Rodando
 
 `$ cd ./app`
 
