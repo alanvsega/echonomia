@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const { authenticate } = require('./utils/auth');
+
 const app = express();
 
 mongoose.connect('mongodb://echonomia:echonomia2019@ds145786.mlab.com:45786/echonomia', {
@@ -11,6 +13,7 @@ mongoose.set('useFindAndModify', false);
 
 app.use(express.json());
 app.use(cors());
+app.use(authenticate);
 
 app.use(require('./routes/users'));
 
