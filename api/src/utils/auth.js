@@ -11,7 +11,8 @@ const sign = promisify(jwt.sign);
 const verify = promisify(jwt.verify);
 
 const authenticate = async (req, res, next) => {
-  if (req.originalUrl === '/login') return next();
+  if ((req.originalUrl === '/user' && req.method === 'POST')
+    || req.originalUrl === '/login') return next();
 
   const { authorization } = req.headers;
   if (!authorization) return res.status(401).send('Não autorizado.');

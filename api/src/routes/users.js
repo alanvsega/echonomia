@@ -11,9 +11,9 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.get('/users/:id', async (req, res) => {
+router.get('/user', async (req, res) => {
   try {
-    const user = await Users.findById(req.params.id);
+    const user = await Users.findById(req.userId);
     if (!user) return res.status(404).send('Usuário não encontrado.');
     res.json({ user });
   } catch (error) {
@@ -21,19 +21,20 @@ router.get('/users/:id', async (req, res) => {
   }
 });
 
-router.post('/users', async (req, res) => {
+router.post('/user', async (req, res) => {
   try {
     req.body.password = await bcrypt.hash(req.body.password, bcrypt.SALT_ROUNDS);
     const user = await Users.create(req.body);
-    res.json({ user });
+    const token = await jwt.sign({ id: user._id }, jwt.JWT_KEY);
+    res.json({ token, user });
   } catch (error) {
     res.status(500).send('Erro interno no servidor.');
   }
 });
 
-router.patch('/users/:id', async (req, res) => {
+router.patch('/user', async (req, res) => {
   try {
-    const user = await Users.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
+    const user = await Users.findByIdAndUpdate(req.userId, { $set: req.body }, { new: true });
     if (!user) return res.status(404).send('Usuário não encontrado.');
     res.json({ user });
   } catch (error) {
@@ -41,9 +42,9 @@ router.patch('/users/:id', async (req, res) => {
   }
 });
 
-router.delete('/users/:id', async (req, res) => {
+router.delete('/user', async (req, res) => {
   try {
-    const user = await Users.findByIdAndRemove(req.params.id);
+    const user = await Users.findByIdAndRemove(req.userId);
     if (!user) return res.status(404).send('Usuário não encontrado.');
     res.json({ user });
   } catch (error) {
