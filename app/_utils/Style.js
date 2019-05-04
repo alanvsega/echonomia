@@ -5,6 +5,11 @@ export default Style = StyleSheet.create({
     flex: 1,
     backgroundColor: '#313131',
   },
+  formView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   rowView: {
     flex: 1,
     flexDirection: 'row',
@@ -21,6 +26,14 @@ export default Style = StyleSheet.create({
     height: 45,
     backgroundColor: '#888',
     color: '#fff',
+    padding: 15,
+    marginTop: 15,
+    borderRadius: 7,
+  },
+  formDatePicker: {
+    width: '84%',
+    height: 45,
+    backgroundColor: '#888',
     padding: 15,
     marginTop: 15,
     borderRadius: 7,

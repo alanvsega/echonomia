@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Alert,
   View,
   Image,
   TextInput,
@@ -10,60 +9,51 @@ import {
 } from 'react-native';
 
 import Style from '../_utils/Style';
-import LoginStyle from './LoginStyle';
+import { errorAlert } from '../_utils/Alert';
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
     }
   }
 
-  _showAlert = (msg) => {
-    Alert.alert(
-      'Erro',
-      msg,
-      [
-        {text: 'OK', onPress: () => {}},
-      ],
-      {cancelable: false},
-    );
-  }
-
   _onEntrarButtonClick = () => {
-    if(this.state.username == '') {
-      this._showAlert('Por favor preencha seu usuário.');
+    Keyboard.dismiss();
+
+    if(this.state.email == '') {
+      errorAlert('Por favor insira seu e-mail.');
     }
     else if(this.state.password == '') {
-      this._showAlert('Por favor preencha sua senha.');
+      errorAlert('Por favor insira sua senha.');
     }
     else {
-      Keyboard.dismiss();
-      console.log('Logando.');
+      console.log('Logando', this.state.email, this.state.password);
     }
   }
 
   _onCadastrarButtonClick = () => {
-
+    this.props.navigation.navigate('Register');
   }
 
   render() {
     return (
       <View style={Style.container}>
-        <View style={LoginStyle.loginView}>
+        <View style={Style.formView}>
           <Image source={require('../_assets/icon.png')}/>
           <TextInput
             style={Style.formTextInput}
             placeholderTextColor='#fff'
-            placeholder='USUÁRIO'
-            onChangeText={(username) => this.setState({username})}
-            value={this.state.username}
+            placeholder='E-MAIL'
+            onChangeText={(email) => this.setState({email})}
+            value={this.state.email}
           />
           <TextInput
             style={Style.formTextInput}
+            secureTextEntry={true}
             placeholderTextColor='#fff'
             placeholder='SENHA'
             onChangeText={(password) => this.setState({password})}

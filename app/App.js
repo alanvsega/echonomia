@@ -5,10 +5,12 @@ import {
 } from 'react-navigation';
 
 import LoginScreen from './login/LoginScreen';
+import RegisterScreen from './register/RegisterScreen';
 
 const RootStack = createStackNavigator(
   {
     Login: LoginScreen,
+    Register: RegisterScreen,
   },
   {
     initialRouteName: 'Login',
