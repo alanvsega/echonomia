@@ -11,6 +11,8 @@ import {
 import Style from '../_utils/Style';
 import { errorAlert } from '../_utils/Alert';
 
+import Header from '../_components/header/Header';
+
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -42,6 +44,7 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <View style={Style.container}>
+        <Header navigation={this.props.navigation}/>
         <View style={Style.formView}>
           <Image source={require('../_assets/icon.png')}/>
           <TextInput

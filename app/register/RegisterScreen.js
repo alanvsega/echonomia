@@ -12,6 +12,8 @@ import DatePicker from 'react-native-datepicker'
 import Style from '../_utils/Style';
 import { errorAlert } from '../_utils/Alert';
 
+import Header from '../_components/header/Header';
+
 export default class RegisterScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -53,6 +55,7 @@ export default class RegisterScreen extends React.Component {
   render() {
     return (
       <View style={Style.container}>
+        <Header navigation={this.props.navigation}/>
         <View style={Style.formView}>
           <Image source={require('../_assets/icon.png')}/>
           <TextInput
@@ -72,13 +75,13 @@ export default class RegisterScreen extends React.Component {
           <DatePicker
             style={Style.formDatePicker}
             date={this.state.data.birthDate}
-            mode="date"
-            placeholder="DATA DE NASCIMENTO*"
-            format="DD/MM/YYYY"
-            minDate="01/01/1900"
-            maxDate="01/01/2006"
-            confirmBtnText="OK"
-            cancelBtnText="Cancelar"
+            mode='date'
+            placeholder='DATA DE NASCIMENTO*'
+            format='DD/MM/YYYY'
+            minDate='01/01/1900'
+            maxDate='01/01/2006'
+            confirmBtnText='OK'
+            cancelBtnText='Cancelar'
             customStyles={{
               dateIcon: {
                 display: 'none',
