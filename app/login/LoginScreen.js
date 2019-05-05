@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import Style from '../_utils/Style';
 import { errorAlert } from '../_utils/Alert';
@@ -14,14 +15,16 @@ import { errorAlert } from '../_utils/Alert';
 import Loader from '../_components/loader/Loader';
 import Header from '../_components/header/Header';
 
-export default class LoginScreen extends React.Component {
+class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       loading: false,
-      email: '',
-      password: '',
+      data: {
+        email: '',
+        password: '',
+      },
     }
   }
 
@@ -35,7 +38,7 @@ export default class LoginScreen extends React.Component {
       errorAlert('Por favor insira sua senha.');
     }
     else {
-      console.log('Logando', this.state.email, this.state.password);
+      console.log('Logando', this.state.data);
     }
   }
 
@@ -56,7 +59,7 @@ export default class LoginScreen extends React.Component {
               style={Style.formTextInput}
               placeholderTextColor='#fff'
               placeholder='E-MAIL'
-              onChangeText={(email) => this.setState({email})}
+              onChangeText={(x) => this.setState({ data: { ...this.state.data, email: x } })}
               value={this.state.email}
             />
             <TextInput
@@ -64,7 +67,7 @@ export default class LoginScreen extends React.Component {
               secureTextEntry={true}
               placeholderTextColor='#fff'
               placeholder='SENHA'
-              onChangeText={(password) => this.setState({password})}
+              onChangeText={(x) => this.setState({ data: { ...this.state.data, password: x } })}
               value={this.state.password}
             />
             <View style={Style.rowView}>
@@ -88,3 +91,13 @@ export default class LoginScreen extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginScreen);

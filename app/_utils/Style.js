@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-import { colors } from '../_constants/Colors';
+import { COLORS } from '../_constants/Colors';
 
 export default Style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.defaultGrey,
+    backgroundColor: COLORS.defaultGrey,
   },
   formView: {
     flex: 1,
@@ -21,12 +21,12 @@ export default Style = StyleSheet.create({
     color: '#fff',
   },
   greenText: {
-    color: colors.defaultGreen,
+    color: COLORS.defaultGreen,
   },
   formTextInput: {
     width: '84%',
     height: 45,
-    backgroundColor: colors.lightGrey,
+    backgroundColor: COLORS.lightGrey,
     color: '#fff',
     padding: 15,
     marginTop: 15,
@@ -35,7 +35,7 @@ export default Style = StyleSheet.create({
   formDatePicker: {
     width: '84%',
     height: 45,
-    backgroundColor: colors.lightGrey,
+    backgroundColor: COLORS.lightGrey,
     padding: 15,
     marginTop: 15,
     borderRadius: 7,
@@ -44,7 +44,7 @@ export default Style = StyleSheet.create({
     width: '42%',
     height: 45,
     alignItems: 'center',
-    backgroundColor: colors.defaultGreen,
+    backgroundColor: COLORS.defaultGreen,
     padding: 15,
     marginTop: 15,
   },
@@ -54,7 +54,7 @@ export default Style = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: colors.defaultGreen,
+    borderColor: COLORS.defaultGreen,
     padding: 15,
     marginTop: 15,
   },

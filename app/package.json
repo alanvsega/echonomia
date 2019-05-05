@@ -7,11 +7,17 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "expo": "^32.0.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-datepicker": "^1.7.2",
-    "react-navigation": "^3.9.1"
+    "react-navigation": "^3.9.1",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "seamless-immutable": "^7.1.4"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

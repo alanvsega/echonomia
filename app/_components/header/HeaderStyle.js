@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { colors } from '../../_constants/Colors'
+import { COLORS } from '../../_constants/Colors'
 
 export default HeaderStyle = StyleSheet.create({
   topBar: {
@@ -16,7 +16,7 @@ export default HeaderStyle = StyleSheet.create({
     marginTop: 25,
   },
   logo: {
-    color: colors.defaultGreen,
+    color: COLORS.defaultGreen,
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 30,
@@ -26,13 +26,13 @@ export default HeaderStyle = StyleSheet.create({
     marginLeft: 10,
   },
   backIcon: {
-    color: colors.lightGrey,
+    color: COLORS.lightGrey,
   },
   userIconView: {
     marginTop: 28,
     marginRight: 10,
   },
   userIcon: {
-    color: colors.lightGrey,
+    color: COLORS.lightGrey,
   },
 });
