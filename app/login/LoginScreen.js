@@ -15,12 +15,14 @@ import { errorAlert } from '../_utils/Alert';
 import Loader from '../_components/loader/Loader';
 import Header from '../_components/header/Header';
 
+import { fetchLogin } from './LoginActions';
+import * as UserReducer from '../_reducers/UserReducer';
+
 class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: false,
       data: {
         email: '',
         password: '',
@@ -31,14 +33,14 @@ class LoginScreen extends React.Component {
   _onEntrarButtonClick = () => {
     Keyboard.dismiss();
 
-    if(this.state.email == '') {
+    if(!this.state.data.email) {
       errorAlert('Por favor insira seu e-mail.');
     }
-    else if(this.state.password == '') {
+    else if(!this.state.data.password) {
       errorAlert('Por favor insira sua senha.');
     }
     else {
-      console.log('Logando', this.state.data);
+      this.props.fetchLogin(this.state.data);
     }
   }
 
@@ -46,8 +48,25 @@ class LoginScreen extends React.Component {
     this.props.navigation.navigate('Register');
   }
 
+  componentDidMount() {
+    this.props.fetchLogin(null);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if(this.props != nextProps) {
+      if(nextProps.userData != null) {
+        console.log("ENTROU");
+        //this.props.navigation.navigate('Dashboard');
+      }
+
+      if((this.props.message != nextProps.message) && nextProps.message) {
+        errorAlert(nextProps.message);
+      }
+    }
+  }
+
   render() {
-    if(this.state.loading)
+    if(this.props.isLoading)
       return <Loader/>;
     else {
       return (
@@ -92,9 +111,13 @@ class LoginScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  isLoading: UserReducer.isLoading(state),
+  message: UserReducer.getMessage(state),
+  userData: UserReducer.getUserData(state),
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetchLogin: (data) => dispatch(fetchLogin(data)),
 });
 
 export default connect(

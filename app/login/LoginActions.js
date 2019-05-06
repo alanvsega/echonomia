@@ -5,25 +5,22 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
-  REGISTER_REQUEST,
-  REGISTER_SUCCESS,
-  REGISTER_ERROR,
 } from '../_constants/ActionTypes';
 
-requestLogin = () => {
+export const requestLogin = () => {
   return {
     type: LOGIN_REQUEST,
   }
 }
 
-receiveLogin = (data) => {
+export const receiveLogin = (data) => {
   return {
     type: LOGIN_SUCCESS,
     data: data,
   }
 }
 
-failLogin = (error) => {
+export const failLogin = (error) => {
   return {
     type: LOGIN_ERROR,
     message: error,
@@ -35,8 +32,22 @@ export const fetchLogin = (data) => {
     try {
       dispatch(requestLogin());
 
-      let response = await RestService.post('login', data);
-      await StorageService.set('token', response.token);
+      let response = null;
+
+      if(data) {
+        request = await RestService.post('login', data);
+        await StorageService.set('userData', request.data);
+
+        response = request.data;
+      }
+      else {
+        response = await StorageService.get('userData');
+      }
+
+      if(!response || !response.user || !response.token) {
+        await StorageService.unset('userData');
+        throw response;
+      }
 
       dispatch(receiveLogin(response));
     }

@@ -5,7 +5,8 @@ import StorageService from './StorageService';
 import { API_ENDPOINT } from '../_constants/Properties';
 
 const axios = create({
-  timeout: 30000
+  timeout: 30000,
+  validateStatus: false,
 });
 
 export default class RestService {
@@ -40,10 +41,10 @@ export default class RestService {
   }
 
   static headerWithAuthorization = async (header = {}) => {
-    let token = await StorageService.get('token');
+    let userData = await StorageService.get('userData');
 
-    if (token) {
-      header.Authorization = 'Bearer ' + token;
+    if (userData.token) {
+      header.Authorization = 'Bearer ' + userData.token;
     }
 
     return header;
