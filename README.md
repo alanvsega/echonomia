@@ -4,7 +4,9 @@
 
 ### Dependências
 
-`$ npm install nodemon --global`
+`$ cd ./api`
+
+`$ npm install`
 
 ### Rodando
 
@@ -24,7 +26,7 @@
 
 `$ cd ./app`
 
-`npm install`
+`$ npm install`
 
 ### Rodando
 

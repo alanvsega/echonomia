@@ -23,8 +23,11 @@ router.get('/user', async (req, res) => {
 
 router.post('/user', async (req, res) => {
   try {
+    let user = await Users.findOne({ email: req.body.email });
+    if (user) return res.status(409).send('E-mail já cadastrado.');
+
     req.body.password = await bcrypt.hash(req.body.password, bcrypt.SALT_ROUNDS);
-    const user = await Users.create(req.body);
+    user = await Users.create(req.body);
     const token = await jwt.sign({ id: user._id }, jwt.JWT_KEY);
     res.json({ token, user });
   } catch (error) {

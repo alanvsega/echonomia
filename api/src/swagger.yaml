@@ -1,0 +1,149 @@
+swagger: "2.0"
+info:
+  description: "API do app echonomia"
+  version: "1.0.0"
+  title: "echonomia"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+schemes:
+- "http"
+- "https"
+tags:
+- name: "User"
+securityDefinitions:
+  APIKey:
+    type: "apiKey"
+    in: "header"
+    name: "Authorization"
+    description: "Token: Bearer $token"
+paths:
+  /login:
+    post:
+      tags:
+      - "User"
+      summary: "Autentica um usuário, dado seu e-mail e senha"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto com e-mail e senha do usuário"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            email:
+              type: "string"
+            password:
+              type: "string"
+          example:
+            email: "jasnley@vscode.com"
+            password: "greg.pontepretano"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "E-mail ou senha incorretos"
+        500:
+          description: "Erro interno no servidor"
+  /user:
+    post:
+      tags:
+      - "User"
+      summary: "Cadastra um novo usuário"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto com as informações do usuário"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "Ok"
+        409:
+          description: "E-mail já cadastrado"
+        500:
+          description: "Erro interno no servidor"
+    get:
+      tags:
+      - "User"
+      summary: "Retorna o usuário correspondente ao token"
+      security:
+      - APIKey: []
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        404:
+          description: "Usuário não encontrado"
+        500:
+          description: "Erro interno no servidor"
+    patch:
+      tags:
+      - "User"
+      summary: "Atualiza o usuário correspondente ao token"
+      security:
+      - APIKey: []
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto com as informações atualizadas do usuário"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        404:
+          description: "Usuário não encontrado"
+        500:
+          description: "Erro interno no servidor"
+    delete:
+      tags:
+      - "User"
+      summary: "Remove o usuário correspondente ao token"
+      security:
+      - APIKey: []
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        404:
+          description: "Usuário não encontrado"
+        500:
+          description: "Erro interno no servidor"
+  /users:
+    get:
+      tags:
+      - "User"
+      summary: "Retorna todos os usuários"
+      security:
+      - APIKey: []
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+definitions:
+  User:
+    User: "object"
+    properties:
+      name:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      birthDate:
+        type: "string"
+    example:
+      name: "Jansley"
+      email: "jasnley@vscode.com"
+      password: "greg.pontepretano"
+      birthDate: "01-01-1999"
