@@ -55,8 +55,7 @@ class LoginScreen extends React.Component {
   componentWillUpdate(nextProps, nextState) {
     if(this.props != nextProps) {
       if(nextProps.userData != null) {
-        console.log("ENTROU");
-        //this.props.navigation.navigate('Dashboard');
+        this.props.navigation.navigate('Dashboard');
       }
 
       if((this.props.message != nextProps.message) && nextProps.message) {

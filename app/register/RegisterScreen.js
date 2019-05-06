@@ -142,8 +142,6 @@ class RegisterScreen extends React.Component {
 
 const mapStateToProps = state => ({
   isLoading: UserReducer.isLoading(state),
-  message: UserReducer.getMessage(state),
-  userData: UserReducer.getUserData(state),
 });
 
 const mapDispatchToProps = dispatch => ({
