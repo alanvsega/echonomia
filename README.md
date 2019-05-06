@@ -1,5 +1,17 @@
 # echonomia
 
+## API
+
+### Dependências
+
+`$ npm install nodemon --global`
+
+### Rodando
+
+`$ cd ./api`
+
+`$ npm start`
+
 ## App
 
 ### Dependências
