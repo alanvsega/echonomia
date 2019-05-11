@@ -90,16 +90,16 @@ class LoginScreen extends React.Component {
             />
             <View style={Style.rowView}>
               <TouchableOpacity
-                style={Style.greenButton}
-                onPress={this._onEntrarButtonClick}
-              >
-                <Text style={Style.whiteText}>ENTRAR</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
                 style={Style.borderedButton}
                 onPress={this._onCadastrarButtonClick}
               >
                 <Text style={Style.greenText}>CADASTRAR</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={Style.greenButton}
+                onPress={this._onEntrarButtonClick}
+              >
+                <Text style={Style.whiteText}>ENTRAR</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -7,6 +7,7 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_ERROR,
+  LOGOUT_SUCCESS,
 } from '../_constants/ActionTypes';
 
 const initialState = Immutable({
@@ -59,6 +60,14 @@ export default user = (state = initialState, action) => {
         loading: false,
         data: null,
         message: action.message ? action.message : '',
+      })
+    }
+    //LOGOUT
+    case LOGOUT_SUCCESS: {
+      return state.merge({
+        loading: false,
+        data: null,
+        message: '',
       })
     }
     default: {

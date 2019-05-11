@@ -12,6 +12,10 @@ export default Style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  detailsView: {
+    flex: 1,
+    alignItems: 'flex-start',
+  },
   rowView: {
     flex: 1,
     flexDirection: 'row',
@@ -57,5 +61,17 @@ export default Style = StyleSheet.create({
     borderColor: COLORS.defaultGreen,
     padding: 15,
     marginTop: 15,
+  },
+  titleLabel: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginLeft: 15,
+    marginTop: 15,
+  },
+  detailsLabel: {
+    color: '#fff',
+    fontSize: 16,
+    marginLeft: 15,
   },
 });

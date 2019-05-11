@@ -13,12 +13,14 @@ import echonomia from './_reducers/Reducers';
 import LoginScreen from './login/LoginScreen';
 import RegisterScreen from './register/RegisterScreen';
 import DashboardScreen from './dashboard/DashboardScreen';
+import MyAccountScreen from './my-account/MyAccountScreen';
 
 const RootStack = createStackNavigator(
   {
     Login: LoginScreen,
     Register: RegisterScreen,
     Dashboard: DashboardScreen,
+    MyAccount: MyAccountScreen,
   },
   {
     initialRouteName: 'Login',

@@ -27,8 +27,13 @@ export default class Header extends React.Component {
     this.props.navigation.dispatch(popAction);
   }
 
+  _onPerfilButtonClick = () => {
+    this.props.navigation.navigate('MyAccount');
+  }
+
   componentWillMount = () => {
-    if(this.props.navigation.state.routeName == 'Register') {
+    if(this.props.navigation.state.routeName == 'Register' || 
+      this.props.navigation.state.routeName == 'MyAccount') {
       this.setState({ showBackIcon: true });
     }
     else if(this.props.navigation.state.routeName != 'Login') {
@@ -60,11 +65,15 @@ export default class Header extends React.Component {
         </View>
         <View style={HeaderStyle.userIconView}>
           {this.state.showUserIcon &&
-            <Icon.FontAwesome
-              name='user-circle'
-              size={30}
-              style={HeaderStyle.userIcon}
-            />
+            <TouchableOpacity
+              onPress={() => this._onPerfilButtonClick() }
+            >
+              <Icon.FontAwesome
+                name='user-circle'
+                size={30}
+                style={HeaderStyle.userIcon}
+              />
+            </TouchableOpacity>
           }
         </View>
       </View>

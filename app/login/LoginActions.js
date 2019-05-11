@@ -5,6 +5,7 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  LOGOUT_SUCCESS,
 } from '../_constants/ActionTypes';
 
 export const requestLogin = () => {
@@ -17,6 +18,12 @@ export const receiveLogin = (data) => {
   return {
     type: LOGIN_SUCCESS,
     data: data,
+  }
+}
+
+export const applyLogout = () => {
+  return {
+    type: LOGOUT_SUCCESS,
   }
 }
 
@@ -54,5 +61,15 @@ export const fetchLogin = (data) => {
     catch(error) {
       dispatch(failLogin(error));
     }
+  }
+}
+
+export const logout = () => {
+  return async (dispatch) => {
+    dispatch(requestLogin());
+
+    await StorageService.unset('userData');
+
+    dispatch(applyLogout());
   }
 }
