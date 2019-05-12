@@ -8,7 +8,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 
 import Style from '../_utils/Style';
@@ -25,6 +25,7 @@ class MyAccountScreen extends React.Component {
     super(props);
 
     this.state = {
+      visibleBirthDate: '',
       data: {
         userId: null,
         name: '',
@@ -71,11 +72,11 @@ class MyAccountScreen extends React.Component {
 
   componentDidMount() {
     this.setState({
+      visibleBirthDate: moment.utc(this.props.userData.birthDate).format('DD/MM/YYYY'),
       data: {
         ...this.state.data,
-        userId: this.props.userData._id,
         name: this.props.userData.name,
-        birthDate: moment(this.props.userData.birthDate).format('DD/MM/YYYY'),
+        birthDate: moment.utc(this.props.userData.birthDate).format('YYYY-MM-DD'),
       }
     });
   }
@@ -101,7 +102,7 @@ class MyAccountScreen extends React.Component {
             <Text style={Style.titleLabel}>DATA DE NASCIMENTO</Text>
             <DatePicker
               style={Style.formEditDatePicker}
-              date={this.state.data.birthDate}
+              date={this.state.visibleBirthDate}
               mode='date'
               placeholder='DATA DE NASCIMENTO*'
               format='DD/MM/YYYY'
@@ -127,11 +128,15 @@ class MyAccountScreen extends React.Component {
                   color: '#fff',
                 },
               }}
-              onDateChange={(date) => this.setState({ data: { ...this.state.data, birthDate: date } })}
+              onDateChange={(date) => this.setState({
+                visibleBirthDate: date,
+                data: { ...this.state.data, birthDate: moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD') }
+              })}
             />
             <Text style={Style.titleLabel}>NOVA SENHA</Text>
             <TextInput
               style={Style.formEditTextInput}
+              secureTextEntry={true}
               placeholderTextColor='#fff'
               placeholder=''
               onChangeText={(x) => this.setState({ data: { ...this.state.data, password: x } })}
@@ -140,6 +145,7 @@ class MyAccountScreen extends React.Component {
             <Text style={Style.titleLabel}>CONFIRMAÇÃO</Text>
             <TextInput
               style={Style.formEditTextInput}
+              secureTextEntry={true}
               placeholderTextColor='#fff'
               placeholder=''
               onChangeText={(x) => this.setState({ data: { ...this.state.data, password2: x } })}

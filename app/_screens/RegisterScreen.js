@@ -8,7 +8,8 @@ import {
   Text,
 } from 'react-native';
 import { connect } from 'react-redux';
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
+import moment from 'moment';
 
 import Style from '../_utils/Style';
 import { okAlert } from '../_utils/Alert';
@@ -24,12 +25,13 @@ class RegisterScreen extends React.Component {
     super(props);
 
     this.state = {
+      visibleBirthDate: '01/01/2001',
       data: {
         name: '',
         email: '',
         password: '',
         password2: '',
-        birthDate: '',
+        birthDate: '2001-01-01',
       },
     }
   }
@@ -82,7 +84,7 @@ class RegisterScreen extends React.Component {
             />
             <DatePicker
               style={Style.formDatePicker}
-              date={this.state.data.birthDate}
+              date={this.state.visibleBirthDate}
               mode='date'
               placeholder='DATA DE NASCIMENTO*'
               format='DD/MM/YYYY'
@@ -108,7 +110,10 @@ class RegisterScreen extends React.Component {
                   color: '#fff',
                 },
               }}
-              onDateChange={(date) => this.setState({ data: { ...this.state.data, birthDate: date } })}
+              onDateChange={(date) => this.setState({
+                visibleBirthDate: date,
+                data: { ...this.state.data, birthDate: moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD') }
+              })}
             />
             <TextInput
               style={Style.formTextInput}

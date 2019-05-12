@@ -93,6 +93,8 @@ export const fetchUpdate = (data) => {
     try {
       dispatch(request());
 
+      console.log(data);
+
       let response = await RestService.patchAuthenticated('user', data);
 
       if(!response || response.status !== 200) {
