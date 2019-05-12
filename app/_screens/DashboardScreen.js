@@ -4,6 +4,7 @@ import {
   Text,
 } from 'react-native';
 import { connect } from 'react-redux';
+import ActionButton from 'react-native-action-button';
 
 import Style from '../_utils/Style';
 
@@ -29,6 +30,10 @@ class DashboardScreen extends React.Component {
           <View style={Style.detailsView}>
             <Text style={Style.titleLabel}>Bem-vindo(a), {this.props.userData.name}</Text>
           </View>
+          <ActionButton
+            buttonColor="#4CAF50"
+            onPress={() => { this.props.navigation.navigate('AddBill'); }}
+          />
         </View>
       );
     }
