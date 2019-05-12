@@ -6,6 +6,7 @@ import {
   USER_SUCCESS,
   USER_ERROR,
   USER_LOGOUT,
+  USER_UPDATE_ERROR,
 } from '../_constants/ActionTypes';
 
 export const request = () => {
@@ -25,6 +26,13 @@ export const receive = (data, msg = '') => {
 export const fail = (error) => {
   return {
     type: USER_ERROR,
+    message: error,
+  }
+}
+
+export const failUpdate = (error) => {
+  return {
+    type: USER_UPDATE_ERROR,
     message: error,
   }
 }
@@ -104,7 +112,7 @@ export const fetchUpdate = (data) => {
       dispatch(receive(response.data.user, 'Usuário atualizado com sucesso.'));
     }
     catch(error) {
-      dispatch(fail(error));
+      dispatch(failUpdate(error));
     }
   }
 }

@@ -54,12 +54,12 @@ class LoginScreen extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if(this.props != nextProps) {
-      if(nextProps.userData != null) {
-        this.props.navigation.navigate('Dashboard');
-      }
-
       if((this.props.message != nextProps.message) && nextProps.message) {
         okAlert(nextProps.message);
+      }
+
+      if(nextProps.userData != null) {
+        this.props.navigation.navigate('Dashboard');
       }
     }
   }
@@ -77,6 +77,7 @@ class LoginScreen extends React.Component {
               style={Style.formTextInput}
               placeholderTextColor='#fff'
               placeholder='E-MAIL'
+              keyboardType='email-address'
               onChangeText={(x) => this.setState({ data: { ...this.state.data, email: x } })}
               value={this.state.email}
             />

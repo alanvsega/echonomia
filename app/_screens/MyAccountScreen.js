@@ -27,7 +27,7 @@ class MyAccountScreen extends React.Component {
     this.state = {
       visibleBirthDate: '',
       data: {
-        userId: null,
+        email: '',
         name: '',
         birthDate: '',
         password: '',
@@ -56,7 +56,10 @@ class MyAccountScreen extends React.Component {
   _onSalvarButtonClick = () => {
     Keyboard.dismiss();
 
-    if(!this.state.data.name) {
+    if(!this.state.data.email) {
+      okAlert('Por favor insira seu e-mail.');
+    }
+    else if(!this.state.data.name) {
       okAlert('Por favor insira seu nome.');
     }
     else if(!this.state.data.birthDate) {
@@ -75,6 +78,7 @@ class MyAccountScreen extends React.Component {
       visibleBirthDate: moment.utc(this.props.userData.birthDate).format('DD/MM/YYYY'),
       data: {
         ...this.state.data,
+        email: this.props.userData.email,
         name: this.props.userData.name,
         birthDate: moment.utc(this.props.userData.birthDate).format('YYYY-MM-DD'),
       }
@@ -90,7 +94,15 @@ class MyAccountScreen extends React.Component {
           <Header navigation={this.props.navigation}/>
           <View style={Style.detailsView}>
             <Text style={Style.titleLabel}>E-MAIL</Text>
-            <Text style={Style.detailsLabel}>{this.props.userData.email}</Text>
+            <TextInput
+              style={Style.formEditTextInput}
+              placeholderTextColor='#fff'
+              placeholder='E-MAIL*'
+              keyboardType='email-address'
+              textContentType='emailAddress'
+              onChangeText={(x) => this.setState({ data: { ...this.state.data, email: x } })}
+              value={this.state.data.email}
+            />
             <Text style={Style.titleLabel}>NOME</Text>
             <TextInput
               style={Style.formEditTextInput}

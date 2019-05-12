@@ -37,6 +37,13 @@ router.post('/user', async (req, res) => {
 
 router.patch('/user', async (req, res) => {
   try {
+    // Valida atualização de e-mail
+    let userByEmail = await Users.findOne({ email: req.body.email });
+    if (userByEmail) {
+      if(userByEmail.id != req.userId) return res.status(409).send('E-mail já cadastrado.');
+    } 
+
+    // Encrypta a senha caso seja enviada
     if(req.body.password) req.body.password = await bcrypt.hash(req.body.password, bcrypt.SALT_ROUNDS);
     else if (req.body.password !== undefined) delete req.body.password;
 

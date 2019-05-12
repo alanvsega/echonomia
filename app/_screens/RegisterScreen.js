@@ -79,6 +79,8 @@ class RegisterScreen extends React.Component {
               style={Style.formTextInput}
               placeholderTextColor='#fff'
               placeholder='E-MAIL*'
+              keyboardType='email-address'
+              textContentType='emailAddress'
               onChangeText={(x) => this.setState({ data: { ...this.state.data, email: x } })}
               value={this.state.data.email}
             />

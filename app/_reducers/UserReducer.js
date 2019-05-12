@@ -4,6 +4,7 @@ import {
   USER_REQUEST,
   USER_SUCCESS,
   USER_ERROR,
+  USER_UPDATE_ERROR,
   USER_LOGOUT,
 } from '../_constants/ActionTypes';
 
@@ -18,7 +19,6 @@ export default user = (state = initialState, action) => {
     case USER_REQUEST: {
       return state.merge({
         loading: true,
-        data: null,
         message: '',
       })
     }
@@ -33,6 +33,12 @@ export default user = (state = initialState, action) => {
       return state.merge({
         loading: false,
         data: null,
+        message: action.message ? action.message : '',
+      })
+    }
+    case USER_UPDATE_ERROR: {
+      return state.merge({
+        loading: false,
         message: action.message ? action.message : '',
       })
     }
