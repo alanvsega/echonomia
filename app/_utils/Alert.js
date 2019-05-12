@@ -1,8 +1,8 @@
 import { Alert } from 'react-native';
 
-export const errorAlert = (msg = 'Algo deu errado.') => {
+export const okAlert = (msg = 'Algo deu errado.', title = 'Info') => {
   Alert.alert(
-    'Erro',
+    title,
     msg,
     [
       { text: 'OK', onPress: () => {} },

@@ -37,6 +37,9 @@ router.post('/user', async (req, res) => {
 
 router.patch('/user', async (req, res) => {
   try {
+    if(req.body.password) req.body.password = await bcrypt.hash(req.body.password, bcrypt.SALT_ROUNDS);
+    else if (req.body.password !== undefined) delete req.body.password;
+
     const user = await Users.findByIdAndUpdate(req.userId, { $set: req.body }, { new: true });
     if (!user) return res.status(404).send('Usuário não encontrado.');
     res.json({ user });

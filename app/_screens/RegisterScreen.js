@@ -11,12 +11,12 @@ import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker'
 
 import Style from '../_utils/Style';
-import { errorAlert } from '../_utils/Alert';
+import { okAlert } from '../_utils/Alert';
 
 import Loader from '../_components/loader/Loader';
 import Header from '../_components/header/Header';
 
-import { fetchRegister } from './RegisterActions';
+import { fetchRegister } from '../_actions/UserActions';
 import * as UserReducer from '../_reducers/UserReducer';
 
 class RegisterScreen extends React.Component {
@@ -38,19 +38,19 @@ class RegisterScreen extends React.Component {
     Keyboard.dismiss();
 
     if(!this.state.data.name) {
-      errorAlert('Por favor insira seu nome.');
+      okAlert('Por favor insira seu nome.');
     }
     else if(!this.state.data.email) {
-      errorAlert('Por favor insira seu e-mail.');
+      okAlert('Por favor insira seu e-mail.');
     }
     else if(!this.state.data.birthDate) {
-      errorAlert('Por favor insira sua data de nascimento.');
+      okAlert('Por favor insira sua data de nascimento.');
     }
     else if(!this.state.data.password || !this.state.data.password2) {
-      errorAlert('Por favor insira sua senha.');
+      okAlert('Por favor insira sua senha.');
     }
     else if(this.state.data.password != this.state.data.password2) {
-      errorAlert('Por favor confirme sua senha.');
+      okAlert('Por favor confirme sua senha.');
     }
     else {
       this.props.fetchRegister(this.state.data);
@@ -100,10 +100,11 @@ class RegisterScreen extends React.Component {
                   marginTop: -24,
                 },
                 placeholderText: {
+                  alignSelf: 'flex-start',
                   color: '#fff',
-                  textAlign: 'left',
                 },
                 dateText: {
+                  alignSelf: 'flex-start',
                   color: '#fff',
                 },
               }}

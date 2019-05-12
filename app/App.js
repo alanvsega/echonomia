@@ -10,10 +10,10 @@ import { createStore, applyMiddleware } from 'redux';
 
 import echonomia from './_reducers/Reducers';
 
-import LoginScreen from './login/LoginScreen';
-import RegisterScreen from './register/RegisterScreen';
-import DashboardScreen from './dashboard/DashboardScreen';
-import MyAccountScreen from './my-account/MyAccountScreen';
+import LoginScreen from './_screens/LoginScreen';
+import RegisterScreen from './_screens/RegisterScreen';
+import DashboardScreen from './_screens/DashboardScreen';
+import MyAccountScreen from './_screens/MyAccountScreen';
 
 const RootStack = createStackNavigator(
   {

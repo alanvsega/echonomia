@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { COLORS } from '../_constants/Colors';
 
@@ -20,6 +20,14 @@ export default Style = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  buttonView: {
+    flex: 1,
+    position: 'relative',
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   whiteText: {
     color: '#fff',
@@ -72,6 +80,23 @@ export default Style = StyleSheet.create({
   detailsLabel: {
     color: '#fff',
     fontSize: 16,
+    marginLeft: 15,
+  },
+  formEditTextInput: {
+    width: Dimensions.get('window').width-30,
+    height: 45,
+    backgroundColor: COLORS.lightGrey,
+    color: '#fff',
+    padding: 15,
+    borderRadius: 7,
+    marginLeft: 15,
+  },
+  formEditDatePicker: {
+    width: Dimensions.get('window').width-30,
+    height: 45,
+    backgroundColor: COLORS.lightGrey,
+    padding: 15,
+    borderRadius: 7,
     marginLeft: 15,
   },
 });

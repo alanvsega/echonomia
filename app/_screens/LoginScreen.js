@@ -10,12 +10,12 @@ import {
 import { connect } from 'react-redux';
 
 import Style from '../_utils/Style';
-import { errorAlert } from '../_utils/Alert';
+import { okAlert } from '../_utils/Alert';
 
 import Loader from '../_components/loader/Loader';
 import Header from '../_components/header/Header';
 
-import { fetchLogin } from './LoginActions';
+import { fetchLogin } from '../_actions/UserActions';
 import * as UserReducer from '../_reducers/UserReducer';
 
 class LoginScreen extends React.Component {
@@ -34,10 +34,10 @@ class LoginScreen extends React.Component {
     Keyboard.dismiss();
 
     if(!this.state.data.email) {
-      errorAlert('Por favor insira seu e-mail.');
+      okAlert('Por favor insira seu e-mail.');
     }
     else if(!this.state.data.password) {
-      errorAlert('Por favor insira sua senha.');
+      okAlert('Por favor insira sua senha.');
     }
     else {
       this.props.fetchLogin(this.state.data);
@@ -59,7 +59,7 @@ class LoginScreen extends React.Component {
       }
 
       if((this.props.message != nextProps.message) && nextProps.message) {
-        errorAlert(nextProps.message);
+        okAlert(nextProps.message);
       }
     }
   }

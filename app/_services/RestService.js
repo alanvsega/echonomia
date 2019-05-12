@@ -41,10 +41,10 @@ export default class RestService {
   }
 
   static headerWithAuthorization = async (header = {}) => {
-    let userData = await StorageService.get('userData');
+    let token = await StorageService.get('token');
 
-    if (userData.token) {
-      header.Authorization = 'Bearer ' + userData.token;
+    if (token) {
+      header.Authorization = 'Bearer ' + token;
     }
 
     return header;
@@ -58,5 +58,10 @@ export default class RestService {
   static postAuthenticated = async (uri, data, header) => {
     header = await RestService.headerWithAuthorization(header);
     return RestService.request('post', uri, data, header);
+  }
+
+  static patchAuthenticated = async (uri, data, header) => {
+    header = await RestService.headerWithAuthorization(header);
+    return RestService.request('patch', uri, data, header);
   }
 }

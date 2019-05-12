@@ -1,13 +1,10 @@
 import Immutable from 'seamless-immutable';
 
 import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_ERROR,
-  REGISTER_REQUEST,
-  REGISTER_SUCCESS,
-  REGISTER_ERROR,
-  LOGOUT_SUCCESS,
+  USER_REQUEST,
+  USER_SUCCESS,
+  USER_ERROR,
+  USER_LOGOUT,
 } from '../_constants/ActionTypes';
 
 const initialState = Immutable({
@@ -18,52 +15,28 @@ const initialState = Immutable({
 
 export default user = (state = initialState, action) => {
   switch (action.type) {
-    // LOGIN
-    case LOGIN_REQUEST: {
+    case USER_REQUEST: {
       return state.merge({
         loading: true,
         data: null,
         message: '',
       })
     }
-    case LOGIN_SUCCESS: {
+    case USER_SUCCESS: {
       return state.merge({
         loading: false,
         data: action.data,
-        message: '',
+        message: action.message ? action.message : '',
       })
     }
-    case LOGIN_ERROR: {
+    case USER_ERROR: {
       return state.merge({
         loading: false,
         data: null,
         message: action.message ? action.message : '',
       })
     }
-    //REGISTER
-    case REGISTER_REQUEST: {
-      return state.merge({
-        loading: true,
-        data: null,
-        message: '',
-      })
-    }
-    case REGISTER_SUCCESS: {
-      return state.merge({
-        loading: false,
-        data: action.data,
-        message: '',
-      })
-    }
-    case REGISTER_ERROR: {
-      return state.merge({
-        loading: false,
-        data: null,
-        message: action.message ? action.message : '',
-      })
-    }
-    //LOGOUT
-    case LOGOUT_SUCCESS: {
+    case USER_LOGOUT: {
       return state.merge({
         loading: false,
         data: null,
