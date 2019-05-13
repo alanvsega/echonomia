@@ -38,16 +38,15 @@ router.post('/user', async (req, res) => {
 router.patch('/user', async (req, res) => {
   try {
     // Valida atualização de e-mail
-    let userByEmail = await Users.findOne({ email: req.body.email });
-    if (userByEmail) {
-      if(userByEmail.id != req.userId) return res.status(409).send('E-mail já cadastrado.');
-    } 
+    let user = await Users.findOne({ email: req.body.email, _id: { $ne: req.userId }});
+    if (user) return res.status(409).send('E-mail já cadastrado.');
 
     // Encrypta a senha caso seja enviada
-    if(req.body.password) req.body.password = await bcrypt.hash(req.body.password, bcrypt.SALT_ROUNDS);
-    else if (req.body.password !== undefined) delete req.body.password;
+    if (req.body.password) {
+      req.body.password = await bcrypt.hash(req.body.password, bcrypt.SALT_ROUNDS);
+    }
 
-    const user = await Users.findByIdAndUpdate(req.userId, { $set: req.body }, { new: true });
+    user = await Users.findByIdAndUpdate(req.userId, { $set: req.body }, { new: true });
     if (!user) return res.status(404).send('Usuário não encontrado.');
     res.json({ user });
   } catch (error) {
