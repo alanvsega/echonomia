@@ -29,6 +29,10 @@ export default Style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  scrollContent: {
+    paddingTop: 5,
+    paddingBottom: 15,
+  },
   whiteText: {
     color: '#fff',
   },
