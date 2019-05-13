@@ -36,7 +36,7 @@ paths:
             password:
               type: "string"
           example:
-            email: "jasnley@vscode.com"
+            email: "jansley@vscode.com"
             password: "greg.pontepretano"
       responses:
         200:
@@ -144,6 +144,6 @@ definitions:
         type: "string"
     example:
       name: "Jansley"
-      email: "jasnley@vscode.com"
+      email: "jansley@vscode.com"
       password: "greg.pontepretano"
       birthDate: "01-01-1999"

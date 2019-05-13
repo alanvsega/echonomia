@@ -44,6 +44,8 @@ router.patch('/user', async (req, res) => {
     // Encrypta a senha caso seja enviada
     if (req.body.password) {
       req.body.password = await bcrypt.hash(req.body.password, bcrypt.SALT_ROUNDS);
+    } else {
+      delete req.body.password;
     }
 
     user = await Users.findByIdAndUpdate(req.userId, { $set: req.body }, { new: true });
