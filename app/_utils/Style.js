@@ -12,6 +12,11 @@ export default Style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  dashboardView: {
+    flex: 1,
+    alignItems: 'center',
+    paddingBottom: 15,
+  },
   detailsView: {
     flex: 1,
     alignItems: 'flex-start',
@@ -28,6 +33,17 @@ export default Style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  lightGreyView: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: COLORS.lightGrey,
+    marginTop: 15,
+    width: '90%',
+    padding: 15,
+    paddingTop: 0,
+    borderRadius: 7,
   },
   scrollContent: {
     paddingTop: 5,
@@ -103,4 +119,8 @@ export default Style = StyleSheet.create({
     borderRadius: 7,
     marginLeft: 15,
   },
+  moneyText: {
+    fontSize: 40,
+    fontWeight: 'bold'
+  }
 });

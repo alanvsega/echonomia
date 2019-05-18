@@ -27,13 +27,29 @@ class DashboardScreen extends React.Component {
       return (
         <View style={Style.container}>
           <Header navigation={this.props.navigation}/>
-          <View style={Style.detailsView}>
+          <View style={Style.dashboardView}>
             <Text style={Style.titleLabel}>Bem-vindo(a), {this.props.userData.name}</Text>
+
+            <View style={Style.lightGreyView}>
+              <Text style={Style.titleLabel}>Histórico</Text>
+            </View>
+
+            <View style={Style.lightGreyView}>
+              <Text style={Style.titleLabel}>Economia</Text>
+              <Text style={[Style.greenText, Style.moneyText]}>R$ 17,00</Text>
+              <Text style={Style.whiteText}>Janeiro</Text>
+            </View>
+
+            <View style={Style.lightGreyView}>
+              <Text style={Style.titleLabel}>Dica</Text>
+              <Text style={Style.whiteText}>Uma média de 10 minutos no banho é suficiente! ;)</Text>
+            </View>
+
+            <ActionButton
+              buttonColor="#4CAF50"
+              onPress={() => { this.props.navigation.navigate('AddBill'); }}
+            />
           </View>
-          <ActionButton
-            buttonColor="#4CAF50"
-            onPress={() => { this.props.navigation.navigate('AddBill'); }}
-          />
         </View>
       );
     }
