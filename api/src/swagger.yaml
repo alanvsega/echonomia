@@ -11,6 +11,7 @@ schemes:
 - "https"
 tags:
 - name: "User"
+- name: "Bill"
 securityDefinitions:
   APIKey:
     type: "apiKey"
@@ -130,6 +131,120 @@ paths:
           description: "Não autorizado"
         500:
           description: "Erro interno no servidor"
+  /bills:
+    get:
+      tags:
+      - "Bill"
+      summary: "Retorna todas as contas do usuários"
+      security:
+      - APIKey: []
+      parameters:
+      - in: "query"
+        name: "limit"
+        type: "number"
+        required: false
+        description: "Limita o numero de itens retornados"
+      - in: "query"
+        name: "skip"
+        type: "number"
+        required: false
+        description: "Despreza os n primeiros itens encontrados"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+  /bill:
+    post:
+      tags:
+      - "Bill"
+      summary: "Criar uma nova conta para o usuário atual"
+      security:
+      - APIKey: []
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto conta"
+        required: true
+        schema:
+          $ref: "#/definitions/Bill"
+      responses:
+        201:
+          description: "Created"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor" 
+  /bill/{id}:
+    patch:
+      tags:
+      - "Bill"
+      summary: "Atualizar uma conta pelo id"
+      security:
+      - APIKey: []
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da conta a ser atualizada"
+        required: true
+        type: "string" 
+      - in: "body"
+        name: "body"
+        description: "Objeto conta"
+        required: true
+        schema:
+          $ref: "#/definitions/Bill"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+    get:
+      tags:
+      - "Bill"
+      summary: "Obter uma conta pelo id"
+      security:
+      - APIKey: []
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da conta a ser atualizada"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Ok"
+        404:
+          description: "Not found"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+    delete:
+      tags:
+      - "Bill"
+      summary: "Deleta uma conta pelo id"
+      security:
+      - APIKey: []
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da conta a ser atualizada"
+        required: true
+        type: "string" 
+      responses:
+        200:
+          description: "Ok"
+        404:
+          description: "Not found"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
 definitions:
   User:
     User: "object"
@@ -143,7 +258,45 @@ definitions:
       birthDate:
         type: "string"
     example:
-      name: "Jansley"
-      email: "jansley@vscode.com"
-      password: "greg.pontepretano"
+      name: "user"
+      email: "user@eaxample.com"
+      password: "user123password"
       birthDate: "01-01-1999"
+  Bill:
+    Bill: "Object"
+    properties:
+      month:
+        type: "number"
+      year:
+        type: "number"
+      expenditure:
+        type: "number"
+      flag:
+        type: "number"
+      totalValue:
+        type: "number"
+      totalTaxes:
+        type: "number"
+      additionalGreen:
+        type: "number"
+      additionalYellow:
+        type: "number"
+      additionalRed:
+        type: "number"
+      startReadDate:
+        type: "Date"
+      endReadDate:
+        type: "Date"
+    example:
+      month: 1
+      year: 2019
+      expenditure: "01-01-1999"
+      flag: "green"
+      totalValue: 99.99
+      totalTaxes: 99.99
+      additionalGreen: 99.99
+      additionalYellow: 99.99
+      additionalRed: 99.99
+      startReadDate: "01-01-1999"
+      endReadDate: "01-01-1999"
+
