@@ -20,6 +20,7 @@ export default Style = StyleSheet.create({
   detailsView: {
     flex: 1,
     alignItems: 'flex-start',
+    paddingBottom: 15,
   },
   rowView: {
     flex: 1,

@@ -3,8 +3,10 @@ import {
   View,
   Text,
   TextInput,
+  Keyboard,
   Picker,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
