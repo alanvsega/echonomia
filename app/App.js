@@ -15,6 +15,7 @@ import RegisterScreen from './_screens/RegisterScreen';
 import DashboardScreen from './_screens/DashboardScreen';
 import MyAccountScreen from './_screens/MyAccountScreen';
 import AddBillScreen from './_screens/AddBillScreen';
+import TipsAndTricksScreen from './_screens/TipsAndTricksScreen';
 
 const RootStack = createStackNavigator(
   {
@@ -23,6 +24,7 @@ const RootStack = createStackNavigator(
     Dashboard: DashboardScreen,
     MyAccount: MyAccountScreen,
     AddBill: AddBillScreen,
+    TipsAndTricks: TipsAndTricksScreen,
   },
   {
     initialRouteName: 'Login',

@@ -46,6 +46,16 @@ export default Style = StyleSheet.create({
     paddingTop: 0,
     borderRadius: 7,
   },
+  tipsView: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: COLORS.lightGrey,
+    marginTop: 15,
+    width: '90%',
+    padding: 15,
+    borderRadius: 7,
+  },
   scrollContent: {
     paddingTop: 5,
     paddingBottom: 15,
@@ -55,6 +65,9 @@ export default Style = StyleSheet.create({
   },
   greenText: {
     color: COLORS.defaultGreen,
+  },
+  bigText: {
+    fontSize: 21,
   },
   formTextInput: {
     width: '84%',
@@ -123,5 +136,5 @@ export default Style = StyleSheet.create({
   moneyText: {
     fontSize: 40,
     fontWeight: 'bold'
-  }
+  },
 });

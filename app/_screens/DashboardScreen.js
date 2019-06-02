@@ -2,6 +2,8 @@ import React from 'react';
 import {
   View,
   Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { connect } from 'react-redux';
 import ActionButton from 'react-native-action-button';
@@ -18,6 +20,10 @@ class DashboardScreen extends React.Component {
     super(props);
 
     this.state = {}
+  }
+
+  _onDicasClick = () => {
+    this.props.navigation.navigate('TipsAndTricks');
   }
 
   render() {
@@ -40,10 +46,12 @@ class DashboardScreen extends React.Component {
               <Text style={Style.whiteText}>Janeiro</Text>
             </View>
 
-            <View style={Style.lightGreyView}>
-              <Text style={Style.titleLabel}>Dica</Text>
-              <Text style={Style.whiteText}>Uma média de 10 minutos no banho é suficiente! ;)</Text>
-            </View>
+            <TouchableWithoutFeedback onPress={() => this._onDicasClick()}>
+              <View style={Style.lightGreyView}>
+                <Text style={Style.titleLabel}>Dica</Text>
+                <Text style={Style.whiteText}>Uma média de 10 minutos no banho é suficiente! ;)</Text>
+              </View>
+            </TouchableWithoutFeedback>
 
             <ActionButton
               buttonColor="#4CAF50"
