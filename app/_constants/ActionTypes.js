@@ -3,3 +3,8 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_ERROR = 'USER_ERROR';
 export const USER_UPDATE_ERROR = 'USER_UPDATE_ERROR';
 export const USER_LOGOUT = 'USER_LOGOUT';
+
+export const BILL_REQUEST = 'BILL_REQUEST';
+export const BILL_SUCCESS = 'BILL_SUCCESS';
+export const BILL_ERROR = 'BILL_ERROR';
+export const BILL_UPDATE_ERROR = 'BILL_UPDATE_ERROR';
