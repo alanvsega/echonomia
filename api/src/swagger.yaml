@@ -12,6 +12,7 @@ schemes:
 tags:
 - name: "User"
 - name: "Bill"
+- name: "Question"
 securityDefinitions:
   APIKey:
     type: "apiKey"
@@ -245,6 +246,63 @@ paths:
           description: "Não autorizado"
         500:
           description: "Erro interno no servidor"
+  /questions:
+    get:
+      tags:
+      - "Question"
+      summary: "Retorna todas as questões"
+      security:
+      - APIKey: []
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+  /question:
+    post:
+      tags:
+      - "Question"
+      summary: "Cadastra uma nova questão"
+      security:
+      - APIKey: []
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto com as informações da questão"
+        required: true
+        schema:
+          $ref: "#/definitions/Question"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+  /question/{id}:
+    delete:
+      tags:
+      - "Question"
+      summary: "Remove a questão correspondente ao Id"
+      security:
+      - APIKey: []
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da questão a ser removida"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        404:
+          description: "Questão não encontrada"
+        500:
+          description: "Erro interno no servidor"
 definitions:
   User:
     User: "object"
@@ -299,4 +357,15 @@ definitions:
       additionalRed: 99.99
       startReadDate: "01-01-1999"
       endReadDate: "01-01-1999"
-
+  Question:
+    User: "object"
+    properties:
+      title:
+        type: "string"
+      alternatives:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      title: "Quantas pessoas moram na residência?"
+      alternatives: ["1", "2", "3", "mais do que 3"]
