@@ -36,6 +36,12 @@ export default class Header extends React.Component {
       this.props.navigation.state.routeName == 'MyAccount') {
       this.setState({ showBackIcon: true });
     }
+    else if(this.props.navigation.state.routeName == 'Dashboard') {
+      this.setState({
+        showBackIcon: false,
+        showUserIcon: true,
+      });
+    }
     else if(this.props.navigation.state.routeName != 'Login') {
       this.setState({
         showBackIcon: true,
