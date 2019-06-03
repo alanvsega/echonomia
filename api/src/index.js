@@ -26,6 +26,7 @@ app.use(authenticate);
 app.use(require('./routes/users'));
 app.use(require('./routes/bills'));
 app.use(require('./routes/questions'));
+app.use(require('./routes/answers'));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

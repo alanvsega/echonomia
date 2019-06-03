@@ -13,6 +13,7 @@ tags:
 - name: "User"
 - name: "Bill"
 - name: "Question"
+- name: "Answer"
 securityDefinitions:
   APIKey:
     type: "apiKey"
@@ -177,7 +178,7 @@ paths:
         401:
           description: "Não autorizado"
         500:
-          description: "Erro interno no servidor" 
+          description: "Erro interno no servidor"
   /bill/{id}:
     patch:
       tags:
@@ -190,7 +191,7 @@ paths:
         in: "path"
         description: "Id da conta a ser atualizada"
         required: true
-        type: "string" 
+        type: "string"
       - in: "body"
         name: "body"
         description: "Objeto conta"
@@ -236,7 +237,7 @@ paths:
         in: "path"
         description: "Id da conta a ser atualizada"
         required: true
-        type: "string" 
+        type: "string"
       responses:
         200:
           description: "Ok"
@@ -301,6 +302,44 @@ paths:
           description: "Não autorizado"
         404:
           description: "Questão não encontrada"
+        500:
+          description: "Erro interno no servidor"
+  /answers:
+    get:
+      tags:
+      - "Answer"
+      summary: "Retorna todas as respostas do usuário correspondente ao token"
+      security:
+      - APIKey: []
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+    post:
+      tags:
+      - "Answer"
+      summary: "Cadastra todas as respostas referenciando o usuário correspondente ao token"
+      security:
+      - APIKey: []
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Array com todas as questões a ser cadastradas"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/Answer"
+      responses:
+        200:
+          description: "Ok"
+        400:
+          description: "Formato inválido"
+        401:
+          description: "Não autorizado"
         500:
           description: "Erro interno no servidor"
 definitions:
@@ -369,3 +408,13 @@ definitions:
     example:
       title: "Quantas pessoas moram na residência?"
       alternatives: ["1", "2", "3", "mais do que 3"]
+  Answer:
+    User: "object"
+    properties:
+      question:
+        type: "string"
+      answer:
+        type: "string"
+    example:
+      question: "Quantas pessoas moram na residência?"
+      answer: "2"

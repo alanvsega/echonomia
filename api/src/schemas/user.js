@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
   birthDate: {
     type: Date,
     required: true
+  },
+  formAnswered: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true
