@@ -14,6 +14,7 @@ tags:
 - name: "Bill"
 - name: "Question"
 - name: "Answer"
+- name: "Tip"
 securityDefinitions:
   APIKey:
     type: "apiKey"
@@ -342,6 +343,78 @@ paths:
           description: "Não autorizado"
         500:
           description: "Erro interno no servidor"
+  /tips:
+    get:
+      tags:
+      - "Tip"
+      summary: "Retorna todas as dicas"
+      security:
+      - APIKey: []
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+  /tip:
+    get:
+      tags:
+      - "Tip"
+      summary: "Retorna aleatoriamente uma dica"
+      security:
+      - APIKey: []
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        404:
+          description: "Nenhuma dica encontrada"
+        500:
+          description: "Erro interno no servidor"
+    post:
+      tags:
+      - "Tip"
+      summary: "Cadastra uma nova dica"
+      security:
+      - APIKey: []
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto com as informações da dica"
+        required: true
+        schema:
+          $ref: "#/definitions/Tip"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+  /tip/{id}:
+    delete:
+      tags:
+      - "Tip"
+      summary: "Remove a dica correspondente ao Id"
+      security:
+      - APIKey: []
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da dica a ser removida"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        404:
+          description: "Dica não encontrada"
+        500:
+          description: "Erro interno no servidor"
 definitions:
   User:
     User: "object"
@@ -397,7 +470,7 @@ definitions:
       startReadDate: "01-01-1999"
       endReadDate: "01-01-1999"
   Question:
-    User: "object"
+    Question: "object"
     properties:
       title:
         type: "string"
@@ -409,7 +482,7 @@ definitions:
       title: "Quantas pessoas moram na residência?"
       alternatives: ["1", "2", "3", "mais do que 3"]
   Answer:
-    User: "object"
+    Answer: "object"
     properties:
       question:
         type: "string"
@@ -418,3 +491,13 @@ definitions:
     example:
       question: "Quantas pessoas moram na residência?"
       answer: "2"
+  Tip:
+    Tip: "object"
+    properties:
+      title:
+        type: "string"
+      description:
+        type: "string"
+    example:
+      title: "Invista nas lâmpadas certas"
+      description: "Troque as lâmpadas eletrônicas pelas de LED."
