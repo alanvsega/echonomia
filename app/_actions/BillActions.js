@@ -40,7 +40,7 @@ export const fetchCreate = (data) => {
     try {
       dispatch(request());
 
-      let response = await RestService.post('bill', data);
+      let response = await RestService.postAuthenticated('bill', data);
 
       if(!response || response.status !== 201) {
         throw (response.data ? response.data : 'Algo deu errado.');

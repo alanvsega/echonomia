@@ -5,7 +5,6 @@ import {
 } from 'react-navigation';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
-import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux';
 
 import echonomia from './_reducers/Reducers';
@@ -34,13 +33,10 @@ const RootStack = createStackNavigator(
 
 const AppContainer = createAppContainer(RootStack);
 
-const loggerMiddleware = createLogger();
-
 const store = createStore(
   echonomia,
   applyMiddleware(
     thunkMiddleware,
-    loggerMiddleware,
   )
 );
 

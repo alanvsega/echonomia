@@ -11,6 +11,9 @@ import Style from '../_utils/Style';
 import Loader from '../_components/loader/Loader';
 import Header from '../_components/header/Header';
 
+import { fetchList } from '../_actions/TipsAndTricksActions';
+import * as TipsAndTricksReducer from '../_reducers/TipsAndTricksReducer';
+
 class TipsAndTricksScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -18,8 +21,12 @@ class TipsAndTricksScreen extends React.Component {
     this.state = {}
   }
 
+  componentDidMount() {
+    this.props.fetchList();
+  }
+
   render() {
-    if(false)
+    if(this.props.tipIsLoading)
       return <Loader/>;
     else {
       return (
@@ -27,24 +34,12 @@ class TipsAndTricksScreen extends React.Component {
           <Header navigation={this.props.navigation}/>
           <ScrollView style={Style.scrollContent}>
             <View style={Style.dashboardView}>
-              <View style={Style.tipsView}>
-                <Text style={[Style.whiteText, Style.bigText]}>Uma média de 10 minutos no banho é suficiente! ;)</Text>
-              </View>
-              <View style={Style.tipsView}>
-                <Text style={[Style.whiteText, Style.bigText]}>Dica 1</Text>
-              </View>
-              <View style={Style.tipsView}>
-                <Text style={[Style.whiteText, Style.bigText]}>Dica 2</Text>
-              </View>
-              <View style={Style.tipsView}>
-                <Text style={[Style.whiteText, Style.bigText]}>Dica 3</Text>
-              </View>
-              <View style={Style.tipsView}>
-                <Text style={[Style.whiteText, Style.bigText]}>Dica 4</Text>
-              </View>
-              <View style={Style.tipsView}>
-                <Text style={[Style.whiteText, Style.bigText]}>Dica 5</Text>
-              </View>
+              {this.props.tipsAndTricks != null && this.props.tipsAndTricks.map((tip, i) =>
+                <View style={Style.tipsView} key={i}>
+                  <Text style={[Style.whiteText, Style.bigText]}>{tip.title}</Text>
+                  <Text style={[Style.whiteText]}>{tip.description}</Text>
+                </View>
+              )}
             </View>
           </ScrollView>
         </View>
@@ -54,9 +49,12 @@ class TipsAndTricksScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  tipsAndTricks: TipsAndTricksReducer.getTipsAndTricks(state),
+  tipIsLoading: TipsAndTricksReducer.isLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetchList: () => dispatch(fetchList()),
 });
 
 export default connect(

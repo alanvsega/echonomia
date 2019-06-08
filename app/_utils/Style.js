@@ -48,8 +48,7 @@ export default Style = StyleSheet.create({
   },
   tipsView: {
     flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: COLORS.lightGrey,
     marginTop: 15,
     width: '90%',
@@ -67,7 +66,9 @@ export default Style = StyleSheet.create({
     color: COLORS.defaultGreen,
   },
   bigText: {
-    fontSize: 21,
+    fontSize: 18,
+    marginBottom: 5,
+    fontWeight: 'bold',
   },
   formTextInput: {
     width: '84%',

@@ -2,18 +2,20 @@ import React from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
 import { connect } from 'react-redux';
 import ActionButton from 'react-native-action-button';
 
 import Style from '../_utils/Style';
+import { okAlert } from '../_utils/Alert';
 
 import Loader from '../_components/loader/Loader';
 import Header from '../_components/header/Header';
 
+import { fetchRandomTip } from '../_actions/TipsAndTricksActions';
 import * as UserReducer from '../_reducers/UserReducer';
+import * as TipsAndTricksReducer from '../_reducers/TipsAndTricksReducer';
 
 class DashboardScreen extends React.Component {
   constructor(props) {
@@ -26,8 +28,20 @@ class DashboardScreen extends React.Component {
     this.props.navigation.navigate('TipsAndTricks');
   }
 
+  componentDidMount() {
+    this.props.fetchRandomTip();
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if(this.props != nextProps) {
+      if((this.props.tipMessage != nextProps.tipMessage) && nextProps.tipMessage) {
+        okAlert(nextProps.tipMessage);
+      }
+    }
+  }
+
   render() {
-    if(this.props.userData == null)
+    if(!this.props.userData || this.props.tipIsLoading)
       return <Loader/>;
     else {
       return (
@@ -48,8 +62,9 @@ class DashboardScreen extends React.Component {
 
             <TouchableWithoutFeedback onPress={() => this._onDicasClick()}>
               <View style={Style.lightGreyView}>
-                <Text style={Style.titleLabel}>Dica</Text>
-                <Text style={Style.whiteText}>Uma média de 10 minutos no banho é suficiente! ;)</Text>
+                <Text style={Style.titleLabel}>{this.props.tip ? this.props.tip.title : 'Dica'}</Text>
+                <Text style={Style.whiteText}>{this.props.tip ? this.props.tip.description : 'Oops :('}</Text>
+                <Text> </Text>
               </View>
             </TouchableWithoutFeedback>
 
@@ -66,9 +81,13 @@ class DashboardScreen extends React.Component {
 
 const mapStateToProps = state => ({
   userData: UserReducer.getUserData(state),
+  tip: TipsAndTricksReducer.getTip(state),
+  tipMessage: TipsAndTricksReducer.getMessage(state),
+  tipIsLoading: TipsAndTricksReducer.isLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetchRandomTip: () => dispatch(fetchRandomTip()),
 });
 
 export default connect(
