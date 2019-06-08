@@ -24,14 +24,6 @@ class DashboardScreen extends React.Component {
     this.state = {}
   }
 
-  _onHistoricoClick = () => {
-    this.props.navigation.navigate('Bills');
-  }
-
-  _onDicasClick = () => {
-    this.props.navigation.navigate('TipsAndTricks');
-  }
-
   componentDidMount() {
     this.props.fetchRandomTip();
   }
@@ -54,7 +46,7 @@ class DashboardScreen extends React.Component {
           <View style={Style.dashboardView}>
             <Text style={Style.titleLabel}>Bem-vindo(a), {this.props.userData.name}</Text>
 
-            <TouchableWithoutFeedback onPress={() => this._onHistoricoClick()}>
+            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Bills')}>
               <View style={Style.lightGreyView}>
                 <Text style={Style.titleLabel}>Histórico</Text>
               </View>
@@ -66,7 +58,7 @@ class DashboardScreen extends React.Component {
               <Text style={Style.whiteText}>Janeiro</Text>
             </View>
 
-            <TouchableWithoutFeedback onPress={() => this._onDicasClick()}>
+            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('TipsAndTricks')}>
               <View style={Style.lightGreyView}>
                 <Text style={Style.titleLabel}>{this.props.tip ? this.props.tip.title : 'Dica'}</Text>
                 <Text style={Style.whiteText}>{this.props.tip ? this.props.tip.description : 'Oops :('}</Text>
@@ -76,7 +68,7 @@ class DashboardScreen extends React.Component {
 
             <ActionButton
               buttonColor="#4CAF50"
-              onPress={() => { this.props.navigation.navigate('AddBill'); }}
+              onPress={() => this.props.navigation.navigate('ActionBill')}
             />
           </View>
         </View>

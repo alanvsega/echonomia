@@ -18,36 +18,60 @@ import { okAlert } from '../_utils/Alert';
 import Loader from '../_components/loader/Loader';
 import Header from '../_components/header/Header';
 
-import { fetchCreate } from '../_actions/BillActions';
+import { fetchCreate, fetchUpdate } from '../_actions/BillActions';
 import * as BillReducer from '../_reducers/BillReducer';
 
-class AddBillScreen extends React.Component {
+class ActionsBillScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       visibleStartReadDate: '',
       visibleEndReadDate: '',
+      isEditing: false,
       data: {},
     }
   }
 
   initData = () => {
-    this.setState({
-      data: {
-        month: moment().month().toString(),
-        year: moment().year().toString(),
-        expenditure: null,
-        flag: 'GREEN',
-        totalValue: null,
-        totalTaxes: null,
-        additionalGreen: null,
-        additionalYellow: null,
-        additionalRed: null,
-        startReadDate: null,
-        endReadDate: null,
-      }
-    });
+    const bill = this.props.navigation.getParam('bill', null);
+
+    if(bill) {
+      this.setState({
+        isEditing: true,
+        data: {
+          billId: bill._id,
+          month: bill.month ? bill.month.toString() : null,
+          year: bill.year ? bill.year.toString() : null,
+          expenditure: bill.expenditure ? bill.expenditure.toString() : null,
+          flag: bill.flag,
+          totalValue: bill.totalValue ? bill.totalValue.toString() : null,
+          totalTaxes: bill.totalTaxes ? bill.totalTaxes.toString() : null,
+          additionalGreen: bill.additionalGreen ? bill.additionalGreen.toString() : null,
+          additionalYellow: bill.additionalYellow ? bill.additionalYellow.toString() : null,
+          additionalRed: bill.additionalRed ? bill.additionalRed.toString() : null,
+          startReadDate: bill.startReadDate,
+          endReadDate: bill.endReadDate,
+        }
+      });
+    }
+    else {
+      this.setState({
+        data: {
+          month: (moment().month()+1).toString(),
+          year: moment().year().toString(),
+          expenditure: null,
+          flag: 'GREEN',
+          totalValue: null,
+          totalTaxes: null,
+          additionalGreen: null,
+          additionalYellow: null,
+          additionalRed: null,
+          startReadDate: null,
+          endReadDate: null,
+        }
+      });
+    }
   }
 
   _onSalvarButtonClick = () => {
@@ -73,17 +97,20 @@ class AddBillScreen extends React.Component {
     }
     else if(
       moment().year() < this.state.data.year ||
-      (moment().year() == this.state.data.year && this.state.data.month > moment().month())
+      (moment().year() == this.state.data.year && this.state.data.month > moment().month()+1)
     ) {
       okAlert('Mês/ano de referência inválidos.');
     }
+    else if(this.state.isEditing) {
+      this.props.fetchUpdate(this.state.data);
+    }
     else {
       this.props.fetchCreate(this.state.data);
-      this.resetData();
+      this.initData();
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.initData();
   }
 
@@ -103,7 +130,7 @@ class AddBillScreen extends React.Component {
         <View style={Style.container}>
           <Header navigation={this.props.navigation}/>
           <ScrollView style={Style.scrollContent}>
-            <Text style={Style.titleLabel}>Nova Conta</Text>
+            <Text style={Style.titleLabel}>{this.state.isEditing ? 'Editar Conta' : 'Nova Conta'}</Text>
             <View style={Style.detailsView}>
               <Text style={Style.detailsLabel}>MÊS</Text>
               <Picker
@@ -286,10 +313,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetchUpdate: (data) => dispatch(fetchUpdate(data)),
   fetchCreate: (data) => dispatch(fetchCreate(data)),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddBillScreen);
+)(ActionsBillScreen);

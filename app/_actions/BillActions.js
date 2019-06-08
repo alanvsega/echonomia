@@ -41,6 +41,7 @@ export const fetchCreate = (data) => {
     try {
       dispatch(request());
 
+      console.log('Creating Bill:', data);
       let response = await RestService.postAuthenticated('bill', data);
 
       if(!response || response.status !== 201) {
@@ -48,6 +49,25 @@ export const fetchCreate = (data) => {
       }
 
       dispatch(receive(BILL_SUCCESS, response.data.bill, 'Conta adicionada com sucesso.'));
+    }
+    catch(error) {
+      dispatch(fail(error));
+    }
+  }
+}
+
+export const fetchUpdate = (data) => {
+  return async (dispatch) => {
+    try {
+      dispatch(request());
+
+      let response = await RestService.patchAuthenticated('bill/' + data.billId, data);
+
+      if(!response || response.status !== 200) {
+        throw (response.data ? response.data : 'Algo deu errado.');
+      }
+
+      dispatch(receive(BILL_SUCCESS, response.data.bill, 'Conta atualizada com sucesso.'));
     }
     catch(error) {
       dispatch(fail(error));

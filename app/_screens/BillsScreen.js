@@ -3,6 +3,7 @@ import {
   View,
   Text,
   ScrollView,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -25,6 +26,23 @@ class BillsScreen extends React.Component {
     this.props.fetchList();
   }
 
+  getMonthName(m) {
+    switch(m) {
+      case 1: return 'Janeiro';
+      case 2: return 'Fevereiro';
+      case 3: return 'Março';
+      case 4: return 'Abril';
+      case 5: return 'Maio';
+      case 6: return 'Junho';
+      case 7: return 'Julho';
+      case 8: return 'Agosto';
+      case 9: return 'Setembro';
+      case 10: return 'Outubro';
+      case 11: return 'Novembro';
+      case 12: return 'Dezembro';
+    }
+  }
+
   render() {
     if(this.props.billIsLoading)
       return <Loader/>;
@@ -36,10 +54,12 @@ class BillsScreen extends React.Component {
             <View style={Style.dashboardView}>
               <Text style={Style.titleLabel}>Contas</Text>
               {this.props.bills != null && this.props.bills.map((bill, i) =>
-                <View style={Style.listView} key={i}>
-                  <Text style={[Style.whiteText, Style.bigText]}>{bill.month}/{bill.year}</Text>
-                  <Text style={[Style.whiteText]}>{bill.totalValue}</Text>
-                </View>
+                <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('ActionBill', { bill: bill })} key={i}>
+                  <View style={Style.listView}>
+                    <Text style={[Style.whiteText, Style.bigText]}>{this.getMonthName(bill.month)} de {bill.year}</Text>
+                    <Text style={[Style.whiteText]}>R$ {bill.totalValue} | {bill.expenditure} kWh</Text>
+                  </View>
+                </TouchableWithoutFeedback>
               )}
             </View>
           </ScrollView>

@@ -48,7 +48,7 @@ router.post('/bill', async (req, res) => {
             bill
         });
     } catch (error) {
-        res.status(500).send('Erro interno no servidor.');
+        res.status(500).send(error + ' Erro interno no servidor.');
     }
 });
 

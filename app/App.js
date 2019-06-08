@@ -13,7 +13,7 @@ import LoginScreen from './_screens/LoginScreen';
 import RegisterScreen from './_screens/RegisterScreen';
 import DashboardScreen from './_screens/DashboardScreen';
 import MyAccountScreen from './_screens/MyAccountScreen';
-import AddBillScreen from './_screens/AddBillScreen';
+import ActionsBillScreen from './_screens/ActionsBillScreen';
 import TipsAndTricksScreen from './_screens/TipsAndTricksScreen';
 import BillsScreen from './_screens/BillsScreen';
 
@@ -23,7 +23,7 @@ const RootStack = createStackNavigator(
     Register: RegisterScreen,
     Dashboard: DashboardScreen,
     MyAccount: MyAccountScreen,
-    AddBill: AddBillScreen,
+    ActionBill: ActionsBillScreen,
     TipsAndTricks: TipsAndTricksScreen,
     Bills: BillsScreen,
   },

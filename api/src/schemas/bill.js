@@ -10,7 +10,7 @@ const billSchema = {
         require: true
     },
     expenditure: {
-        type: Date,
+        type: Number,
         require: true
     },
     flag: {
