@@ -26,24 +26,19 @@ const billSchema = {
         require: true
     },
     additionalGreen: {
-        type: Number,
-        require: true
+        type: Number
     },
     additionalYellow: {
-        type: Number,
-        require: true
+        type: Number
     },
     additionalRed: {
-        type: Number,
-        require: true
+        type: Number
     },
     startReadDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     endReadDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,

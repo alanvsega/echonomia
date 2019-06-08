@@ -24,6 +24,10 @@ class DashboardScreen extends React.Component {
     this.state = {}
   }
 
+  _onHistoricoClick = () => {
+    this.props.navigation.navigate('Bills');
+  }
+
   _onDicasClick = () => {
     this.props.navigation.navigate('TipsAndTricks');
   }
@@ -50,9 +54,11 @@ class DashboardScreen extends React.Component {
           <View style={Style.dashboardView}>
             <Text style={Style.titleLabel}>Bem-vindo(a), {this.props.userData.name}</Text>
 
-            <View style={Style.lightGreyView}>
-              <Text style={Style.titleLabel}>Histórico</Text>
-            </View>
+            <TouchableWithoutFeedback onPress={() => this._onHistoricoClick()}>
+              <View style={Style.lightGreyView}>
+                <Text style={Style.titleLabel}>Histórico</Text>
+              </View>
+            </TouchableWithoutFeedback>
 
             <View style={Style.lightGreyView}>
               <Text style={Style.titleLabel}>Economia</Text>

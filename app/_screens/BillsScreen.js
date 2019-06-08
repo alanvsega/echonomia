@@ -11,10 +11,10 @@ import Style from '../_utils/Style';
 import Loader from '../_components/loader/Loader';
 import Header from '../_components/header/Header';
 
-import { fetchList } from '../_actions/TipsAndTricksActions';
-import * as TipsAndTricksReducer from '../_reducers/TipsAndTricksReducer';
+import { fetchList } from '../_actions/BillActions';
+import * as BillReducer from '../_reducers/BillReducer';
 
-class TipsAndTricksScreen extends React.Component {
+class BillsScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -26,7 +26,7 @@ class TipsAndTricksScreen extends React.Component {
   }
 
   render() {
-    if(this.props.tipIsLoading)
+    if(this.props.billIsLoading)
       return <Loader/>;
     else {
       return (
@@ -34,11 +34,11 @@ class TipsAndTricksScreen extends React.Component {
           <Header navigation={this.props.navigation}/>
           <ScrollView style={Style.scrollContent}>
             <View style={Style.dashboardView}>
-            <Text style={Style.titleLabel}>Dicas & Truques</Text>
-              {this.props.tipsAndTricks != null && this.props.tipsAndTricks.map((tip, i) =>
+              <Text style={Style.titleLabel}>Contas</Text>
+              {this.props.bills != null && this.props.bills.map((bill, i) =>
                 <View style={Style.listView} key={i}>
-                  <Text style={[Style.whiteText, Style.bigText]}>{tip.title}</Text>
-                  <Text style={[Style.whiteText]}>{tip.description}</Text>
+                  <Text style={[Style.whiteText, Style.bigText]}>{bill.month}/{bill.year}</Text>
+                  <Text style={[Style.whiteText]}>{bill.totalValue}</Text>
                 </View>
               )}
             </View>
@@ -50,8 +50,8 @@ class TipsAndTricksScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  tipsAndTricks: TipsAndTricksReducer.getTipsAndTricks(state),
-  tipIsLoading: TipsAndTricksReducer.isLoading(state),
+  bills: BillReducer.getBills(state),
+  billIsLoading: BillReducer.isLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -61,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TipsAndTricksScreen);
+)(BillsScreen);

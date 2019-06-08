@@ -3,13 +3,17 @@ import Immutable from 'seamless-immutable';
 import {
   BILL_REQUEST,
   BILL_SUCCESS,
+  BILL_LIST_SUCCESS,
   BILL_ERROR,
   BILL_UPDATE_ERROR,
 } from '../_constants/ActionTypes';
 
 const initialState = Immutable({
   loading: false,
-  data: null,
+  data: {
+    list: null,
+    bill: null,
+  },
   message: '',
 });
 
@@ -24,7 +28,20 @@ export default bill = (state = initialState, action) => {
     case BILL_SUCCESS: {
       return state.merge({
         loading: false,
-        data: action.data,
+        data: {
+          ...state.data,
+          bill: action.data,
+        },
+        message: action.message ? action.message : '',
+      })
+    }
+    case BILL_LIST_SUCCESS: {
+      return state.merge({
+        loading: false,
+        data: {
+          ...state.data,
+          list: action.data,
+        },
         message: action.message ? action.message : '',
       })
     }
@@ -47,8 +64,12 @@ export default bill = (state = initialState, action) => {
   }
 }
 
-export const getBillData = (state) => {
-  return state.bill.data;
+export const getBills = (state) => {
+  return state.bill.data.list;
+}
+
+export const getBill = (state) => {
+  return state.bill.data.bill;
 }
 
 export const getMessage = (state) => {

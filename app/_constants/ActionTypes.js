@@ -6,6 +6,7 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 
 export const BILL_REQUEST = 'BILL_REQUEST';
 export const BILL_SUCCESS = 'BILL_SUCCESS';
+export const BILL_LIST_SUCCESS = 'BILL_LIST_SUCCESS';
 export const BILL_ERROR = 'BILL_ERROR';
 export const BILL_UPDATE_ERROR = 'BILL_UPDATE_ERROR';
 

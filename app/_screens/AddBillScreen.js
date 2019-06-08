@@ -4,10 +4,10 @@ import {
   Text,
   TextInput,
   Keyboard,
-  Picker,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { Picker } from 'react-native-picker-dropdown'
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
@@ -28,6 +28,12 @@ class AddBillScreen extends React.Component {
     this.state = {
       visibleStartReadDate: '',
       visibleEndReadDate: '',
+      data: {},
+    }
+  }
+
+  initData = () => {
+    this.setState({
       data: {
         month: moment().month().toString(),
         year: moment().year().toString(),
@@ -41,7 +47,7 @@ class AddBillScreen extends React.Component {
         startReadDate: null,
         endReadDate: null,
       }
-    }
+    });
   }
 
   _onSalvarButtonClick = () => {
@@ -53,20 +59,39 @@ class AddBillScreen extends React.Component {
     else if(!this.state.data.year) {
       okAlert('Por favor insira o ano.');
     }
-    else if(!this.state.data.expenditure) {
+    else if(!this.state.data.expenditure || this.state.data.expenditure < 0) {
       okAlert('Por favor insira o consumo total.');
     }
     else if(!this.state.data.flag) {
       okAlert('Por favor insira a bandeira.');
     }
-    else if(!this.state.data.totalValue) {
+    else if(!this.state.data.totalValue || this.state.data.totalValue < 0) {
       okAlert('Por favor insira o valor total.');
     }
-    else if(!this.state.data.totalTaxes) {
+    else if(!this.state.data.totalTaxes || this.state.data.totalTaxes < 0) {
       okAlert('Por favor insira o total de impostos.');
+    }
+    else if(
+      moment().year() < this.state.data.year ||
+      (moment().year() == this.state.data.year && this.state.data.month > moment().month())
+    ) {
+      okAlert('Mês/ano de referência inválidos.');
     }
     else {
       this.props.fetchCreate(this.state.data);
+      this.resetData();
+    }
+  }
+
+  componentWillMount() {
+    this.initData();
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if(this.props != nextProps) {
+      if((this.props.billMessage != nextProps.billMessage) && nextProps.billMessage) {
+        okAlert(nextProps.billMessage);
+      }
     }
   }
 
@@ -78,11 +103,13 @@ class AddBillScreen extends React.Component {
         <View style={Style.container}>
           <Header navigation={this.props.navigation}/>
           <ScrollView style={Style.scrollContent}>
+            <Text style={Style.titleLabel}>Nova Conta</Text>
             <View style={Style.detailsView}>
-              <Text style={Style.titleLabel}>MÊS</Text>
+              <Text style={Style.detailsLabel}>MÊS</Text>
               <Picker
                 selectedValue={this.state.data.month}
                 style={Style.formEditTextInput}
+                onValueChange={(x) => this.setState({ data: { ...this.state.data, month: x } })}
               >
                 <Picker.Item label="Janeiro" value="1"/>
                 <Picker.Item label="Fevereiro" value="2"/>
@@ -97,7 +124,7 @@ class AddBillScreen extends React.Component {
                 <Picker.Item label="Novembro" value="11"/>
                 <Picker.Item label="Dezembro" value="12"/>
               </Picker>
-              <Text style={Style.titleLabel}>ANO</Text>
+              <Text style={Style.detailsLabel}>ANO</Text>
               <TextInput
                 style={Style.formEditTextInput}
                 placeholderTextColor='#fff'
@@ -106,7 +133,7 @@ class AddBillScreen extends React.Component {
                 onChangeText={(x) => this.setState({ data: { ...this.state.data, year: x } })}
                 value={this.state.data.year}
               />
-              <Text style={Style.titleLabel}>CONSUMO TOTAL</Text>
+              <Text style={Style.detailsLabel}>CONSUMO TOTAL</Text>
               <TextInput
                 style={Style.formEditTextInput}
                 placeholderTextColor='#fff'
@@ -115,16 +142,18 @@ class AddBillScreen extends React.Component {
                 onChangeText={(x) => this.setState({ data: { ...this.state.data, expenditure: x } })}
                 value={this.state.data.expenditure}
               />
-              <Text style={Style.titleLabel}>BANDEIRA DE CONSUMO</Text>
+              <Text style={Style.detailsLabel}>BANDEIRA DE CONSUMO</Text>
               <Picker
                 selectedValue={this.state.data.flag}
                 style={Style.formEditTextInput}
+                onValueChange={(x) => this.setState({ data: { ...this.state.data, flag: x } })}
+                mode="dialog"
               >
                 <Picker.Item label="Verde" value="GREEN"/>
                 <Picker.Item label="Amarela" value="YELLOW"/>
                 <Picker.Item label="Vermelha" value="RED"/>
               </Picker>
-              <Text style={Style.titleLabel}>VALOR TOTAL</Text>
+              <Text style={Style.detailsLabel}>VALOR TOTAL</Text>
               <TextInput
                 style={Style.formEditTextInput}
                 placeholderTextColor='#fff'
@@ -133,7 +162,7 @@ class AddBillScreen extends React.Component {
                 onChangeText={(x) => this.setState({ data: { ...this.state.data, totalValue: x } })}
                 value={this.state.data.totalValue}
               />
-              <Text style={Style.titleLabel}>VALOR DOS IMPOSTOS</Text>
+              <Text style={Style.detailsLabel}>VALOR DOS IMPOSTOS</Text>
               <TextInput
                 style={Style.formEditTextInput}
                 placeholderTextColor='#fff'
@@ -142,7 +171,7 @@ class AddBillScreen extends React.Component {
                 onChangeText={(x) => this.setState({ data: { ...this.state.data, totalTaxes: x } })}
                 value={this.state.data.totalTaxes}
               />
-              <Text style={Style.titleLabel}>ADICIONAL DE BANDEIRA VERDE</Text>
+              <Text style={Style.detailsLabel}>ADICIONAL DE BANDEIRA VERDE</Text>
               <TextInput
                 style={Style.formEditTextInput}
                 placeholderTextColor='#fff'
@@ -151,7 +180,7 @@ class AddBillScreen extends React.Component {
                 onChangeText={(x) => this.setState({ data: { ...this.state.data, additionalGreen: x } })}
                 value={this.state.data.additionalGreen}
               />
-              <Text style={Style.titleLabel}>ADICIONAL DE BANDEIRA AMARELA</Text>
+              <Text style={Style.detailsLabel}>ADICIONAL DE BANDEIRA AMARELA</Text>
               <TextInput
                 style={Style.formEditTextInput}
                 placeholderTextColor='#fff'
@@ -160,7 +189,7 @@ class AddBillScreen extends React.Component {
                 onChangeText={(x) => this.setState({ data: { ...this.state.data, additionalYellow: x } })}
                 value={this.state.data.additionalYellow}
               />
-              <Text style={Style.titleLabel}>ADICIONAL DE BANDEIRA VERMELHA</Text>
+              <Text style={Style.detailsLabel}>ADICIONAL DE BANDEIRA VERMELHA</Text>
               <TextInput
                 style={Style.formEditTextInput}
                 placeholderTextColor='#fff'
@@ -169,15 +198,13 @@ class AddBillScreen extends React.Component {
                 onChangeText={(x) => this.setState({ data: { ...this.state.data, additionalRed: x } })}
                 value={this.state.data.additionalRed}
               />
-              <Text style={Style.titleLabel}>DATA DA LEITURA INICIAL</Text>
+              <Text style={Style.detailsLabel}>DATA DA LEITURA INICIAL</Text>
               <DatePicker
                 style={Style.formEditDatePicker}
                 date={this.state.visibleStartReadDate}
                 mode='date'
                 placeholder=''
                 format='DD/MM/YYYY'
-                minDate='01/04/2019'
-                maxDate='31/05/2019'
                 confirmBtnText='OK'
                 cancelBtnText='Cancelar'
                 customStyles={{
@@ -203,15 +230,15 @@ class AddBillScreen extends React.Component {
                   data: { ...this.state.data, startReadDate: moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD') }
                 })}
               />
-              <Text style={Style.titleLabel}>DATA DA LEITURA FINAL</Text>
+              <Text style={Style.detailsLabel}>DATA DA LEITURA FINAL</Text>
               <DatePicker
                 style={Style.formEditDatePicker}
                 date={this.state.visibleEndReadDate}
+                editable={this.state.visibleStartReadDate ? true : false}
                 mode='date'
                 placeholder=''
                 format='DD/MM/YYYY'
-                minDate='01/04/2019'
-                maxDate='31/05/2019'
+                minDate={this.state.visibleStartReadDate}
                 confirmBtnText='OK'
                 cancelBtnText='Cancelar'
                 customStyles={{
@@ -255,8 +282,7 @@ class AddBillScreen extends React.Component {
 
 const mapStateToProps = state => ({
   isLoading: BillReducer.isLoading(state),
-  message: BillReducer.getMessage(state),
-  billData: BillReducer.getBillData(state),
+  billMessage: BillReducer.getMessage(state),
 });
 
 const mapDispatchToProps = dispatch => ({

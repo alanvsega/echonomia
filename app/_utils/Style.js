@@ -46,7 +46,7 @@ export default Style = StyleSheet.create({
     paddingTop: 0,
     borderRadius: 7,
   },
-  tipsView: {
+  listView: {
     flex: 1,
     alignItems: 'flex-start',
     backgroundColor: COLORS.lightGrey,
@@ -109,13 +109,15 @@ export default Style = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 18,
-    marginLeft: 15,
     marginTop: 15,
+    textAlign: 'center',
   },
   detailsLabel: {
     color: '#fff',
+    fontWeight: 'bold',
     fontSize: 16,
     marginLeft: 15,
+    marginTop: 15,
   },
   formEditTextInput: {
     width: Dimensions.get('window').width-30,

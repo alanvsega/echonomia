@@ -92,8 +92,9 @@ class MyAccountScreen extends React.Component {
       return (
         <View style={Style.container}>
           <Header navigation={this.props.navigation}/>
+          <Text style={Style.titleLabel}>Perfil</Text>
           <View style={Style.detailsView}>
-            <Text style={Style.titleLabel}>E-MAIL</Text>
+            <Text style={Style.detailsLabel}>E-MAIL</Text>
             <TextInput
               style={Style.formEditTextInput}
               placeholderTextColor='#fff'
@@ -103,7 +104,7 @@ class MyAccountScreen extends React.Component {
               onChangeText={(x) => this.setState({ data: { ...this.state.data, email: x } })}
               value={this.state.data.email}
             />
-            <Text style={Style.titleLabel}>NOME</Text>
+            <Text style={Style.detailsLabel}>NOME</Text>
             <TextInput
               style={Style.formEditTextInput}
               placeholderTextColor='#fff'
@@ -111,7 +112,7 @@ class MyAccountScreen extends React.Component {
               onChangeText={(x) => this.setState({ data: { ...this.state.data, name: x } })}
               value={this.state.data.name}
             />
-            <Text style={Style.titleLabel}>DATA DE NASCIMENTO</Text>
+            <Text style={Style.detailsLabel}>DATA DE NASCIMENTO</Text>
             <DatePicker
               style={Style.formEditDatePicker}
               date={this.state.visibleBirthDate}
@@ -145,7 +146,7 @@ class MyAccountScreen extends React.Component {
                 data: { ...this.state.data, birthDate: moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD') }
               })}
             />
-            <Text style={Style.titleLabel}>NOVA SENHA</Text>
+            <Text style={Style.detailsLabel}>NOVA SENHA</Text>
             <TextInput
               style={Style.formEditTextInput}
               secureTextEntry={true}
@@ -154,7 +155,7 @@ class MyAccountScreen extends React.Component {
               onChangeText={(x) => this.setState({ data: { ...this.state.data, password: x } })}
               value={this.state.data.password}
             />
-            <Text style={Style.titleLabel}>CONFIRMAÇÃO</Text>
+            <Text style={Style.detailsLabel}>CONFIRMAÇÃO</Text>
             <TextInput
               style={Style.formEditTextInput}
               secureTextEntry={true}
