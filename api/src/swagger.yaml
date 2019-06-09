@@ -159,6 +159,54 @@ paths:
           description: "Não autorizado"
         500:
           description: "Erro interno no servidor"
+  /bills/ConsumeChart:
+    get:
+      tags:
+      - "Bill"
+      summary: "Retorna as ultimas contas adicionadas"
+      security:
+      - APIKey: []
+      parameters:
+      - in: "query"
+        name: "chartResolution"
+        description: "Número total de contas a serem retornadas"
+        schema:
+            type: integer
+        required: false
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
+  /bills/MonthEconomy:
+    get:
+      tags:
+      - "Bill"
+      summary: "Retorna o total de economia monetaria em relação ao mês anterior"
+      security:
+      - APIKey: []
+      parameters:
+      - in: "query"
+        name: "referenceMonth"
+        description: "Ano da conta de referencia"
+        schema:
+            type: integer
+        required: false
+      - in: "query"
+        name: "referenceYear"
+        description: "Mês da conta de referencia"
+        schema:
+            type: integer
+        required: false
+      responses:
+        200:
+          description: "Ok"
+        401:
+          description: "Não autorizado"
+        500:
+          description: "Erro interno no servidor"
   /bill:
     post:
       tags:
@@ -277,8 +325,8 @@ paths:
         schema:
           $ref: "#/definitions/Question"
       responses:
-        200:
-          description: "Ok"
+        201:
+          description: "Created"
         401:
           description: "Não autorizado"
         500:
