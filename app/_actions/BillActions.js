@@ -40,8 +40,7 @@ export const fetchCreate = (data) => {
   return async (dispatch) => {
     try {
       dispatch(request());
-
-      console.log('Creating Bill:', data);
+      
       let response = await RestService.postAuthenticated('bill', data);
 
       if(!response || response.status !== 201) {

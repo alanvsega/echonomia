@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
@@ -92,7 +93,9 @@ class MyAccountScreen extends React.Component {
       return (
         <View style={Style.container}>
           <Header navigation={this.props.navigation}/>
-          <Text style={Style.titleLabel}>Perfil</Text>
+          <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Form')}>
+            <Text style={Style.titleLabel}>Perfil</Text>
+          </TouchableWithoutFeedback>
           <View style={Style.detailsView}>
             <Text style={Style.detailsLabel}>E-MAIL</Text>
             <TextInput

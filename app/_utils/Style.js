@@ -128,6 +128,14 @@ export default Style = StyleSheet.create({
     borderRadius: 7,
     marginLeft: 15,
   },
+  formEditPicker: {
+    width: Dimensions.get('window').width-30,
+    backgroundColor: COLORS.lightGrey,
+    color: '#fff',
+    padding: 15,
+    borderRadius: 7,
+    marginLeft: 15,
+  },
   formEditDatePicker: {
     width: Dimensions.get('window').width-30,
     height: 45,

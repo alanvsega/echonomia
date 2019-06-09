@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import { Picker } from 'react-native-picker-dropdown'
+import { Picker } from 'react-native-picker-dropdown';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
@@ -135,7 +135,8 @@ class ActionsBillScreen extends React.Component {
               <Text style={Style.detailsLabel}>MÊS</Text>
               <Picker
                 selectedValue={this.state.data.month}
-                style={Style.formEditTextInput}
+                style={Style.formEditPicker}
+                textStyle={Style.whiteText}
                 onValueChange={(x) => this.setState({ data: { ...this.state.data, month: x } })}
               >
                 <Picker.Item label="Janeiro" value="1"/>
@@ -172,7 +173,8 @@ class ActionsBillScreen extends React.Component {
               <Text style={Style.detailsLabel}>BANDEIRA DE CONSUMO</Text>
               <Picker
                 selectedValue={this.state.data.flag}
-                style={Style.formEditTextInput}
+                style={Style.formEditPicker}
+                textStyle={Style.whiteText}
                 onValueChange={(x) => this.setState({ data: { ...this.state.data, flag: x } })}
                 mode="dialog"
               >

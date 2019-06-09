@@ -65,7 +65,6 @@ export default bill = (state = initialState, action) => {
 }
 
 export const getBills = (state) => {
-  console.log('bills', state.bill.data.list);
   return state.bill.data.list;
 }
 
