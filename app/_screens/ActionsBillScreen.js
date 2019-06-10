@@ -39,6 +39,8 @@ class ActionsBillScreen extends React.Component {
     if(bill) {
       this.setState({
         isEditing: true,
+        visibleStartReadDate: moment(bill.startReadDate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+        visibleEndReadDate: moment(bill.endReadDate, 'YYYY-MM-DD').format('DD/MM/YYYY'),
         data: {
           billId: bill._id,
           month: bill.month ? bill.month.toString() : null,
@@ -263,11 +265,9 @@ class ActionsBillScreen extends React.Component {
               <DatePicker
                 style={Style.formEditDatePicker}
                 date={this.state.visibleEndReadDate}
-                editable={this.state.visibleStartReadDate ? true : false}
                 mode='date'
                 placeholder=''
                 format='DD/MM/YYYY'
-                minDate={this.state.visibleStartReadDate}
                 confirmBtnText='OK'
                 cancelBtnText='Cancelar'
                 customStyles={{
