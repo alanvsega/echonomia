@@ -4,6 +4,9 @@ import {
   BILL_REQUEST,
   BILL_SUCCESS,
   BILL_LIST_SUCCESS,
+  MONTH_ECONOMY_SUCCESS,
+  CHART_SUCCESS,
+  EMPTY_BILLS_DATA,
   BILL_ERROR,
   BILL_UPDATE_ERROR,
 } from '../_constants/ActionTypes';
@@ -48,6 +51,7 @@ export const fetchCreate = (data) => {
       }
 
       dispatch(receive(BILL_SUCCESS, response.data.bill, 'Conta adicionada com sucesso.'));
+      dispatch({ type: EMPTY_BILLS_DATA });
     }
     catch(error) {
       dispatch(fail(error));
@@ -67,6 +71,7 @@ export const fetchUpdate = (data) => {
       }
 
       dispatch(receive(BILL_SUCCESS, response.data.bill, 'Conta atualizada com sucesso.'));
+      dispatch({ type: EMPTY_BILLS_DATA });
     }
     catch(error) {
       dispatch(fail(error));
@@ -86,6 +91,44 @@ export const fetchList = () => {
       }
 
       dispatch(receive(BILL_LIST_SUCCESS, response.data.bills));
+    }
+    catch(error) {
+      dispatch(fail(error));
+    }
+  }
+}
+
+export const fetchMonthEconomy = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(request());
+
+      let response = await RestService.getAuthenticated('bills/MonthEconomy');
+
+      if(!response || response.status !== 200) {
+        throw (response.data ? response.data : 'Algo deu errado.');
+      }
+
+      dispatch(receive(MONTH_ECONOMY_SUCCESS, response.data.echonomy));
+    }
+    catch(error) {
+      dispatch(fail(error));
+    }
+  }
+}
+
+export const fetchChart = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(request());
+
+      let response = await RestService.getAuthenticated('bills/ConsumeChart');
+
+      if(!response || response.status !== 200) {
+        throw (response.data ? response.data : 'Algo deu errado.');
+      }
+
+      dispatch(receive(CHART_SUCCESS, response.data));
     }
     catch(error) {
       dispatch(fail(error));

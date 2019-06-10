@@ -55,6 +55,9 @@ export default Style = StyleSheet.create({
     padding: 15,
     borderRadius: 7,
   },
+  historyView: {
+    width: '90%',
+  },
   scrollContent: {
     paddingTop: 5,
     paddingBottom: 15,
@@ -64,6 +67,9 @@ export default Style = StyleSheet.create({
   },
   greenText: {
     color: COLORS.defaultGreen,
+  },
+  redText: {
+    color: '#dc3545',
   },
   bigText: {
     fontSize: 18,

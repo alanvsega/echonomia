@@ -22,10 +22,6 @@ class BillsScreen extends React.Component {
     this.state = {}
   }
 
-  componentDidMount() {
-    this.props.fetchList();
-  }
-
   getMonthName(m) {
     switch(m) {
       case 1: return 'Janeiro';
@@ -40,6 +36,18 @@ class BillsScreen extends React.Component {
       case 10: return 'Outubro';
       case 11: return 'Novembro';
       case 12: return 'Dezembro';
+    }
+  }
+
+  componentDidMount() {
+    this.props.fetchList();
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if(this.props != nextProps) {
+      if((this.props.bills != nextProps.bills) && nextProps.bills == null) {
+        this.props.fetchList();
+      }
     }
   }
 
