@@ -12,7 +12,10 @@ router.get('/bills', async (req, res) => {
 
         const bills = await Bills.find({
             userId: req.userId
-        }).limit(limit).skip(skip);
+        }).limit(limit).skip(skip).sort({
+            year: -1,
+            month: -1
+        });
 
         res.status(200).json({
             bills
