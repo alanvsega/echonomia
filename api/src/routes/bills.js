@@ -110,7 +110,7 @@ router.get('/bills/MonthEconomy', async (req, res) => {
 
         return res.status(200).json({
             echonomy: {
-                totalEconomy: (!bill1 || !bill2 ? 0 : bill1.totalValue) - (!bill1 || !bill2 ? 0 : bill2.totalValue),
+                totalEconomy: (!bill1 || !bill2 ? 0 : bill2.totalValue) - (!bill1 || !bill2 ? 0 : bill1.totalValue),
                 relatedMonth: month
             }
         });
@@ -131,7 +131,9 @@ router.get('/bills/ConsumeChart', async (req, res) => {
         }).limit(chartResolution);
 
         if (bills.length === 0)
-            return res.status(200).json({bills});
+            return res.status(200).json({
+                bills
+            });
 
         const chartBills = bills.map(bill => {
             return {
